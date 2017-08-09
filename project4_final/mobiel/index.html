@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>欢迎光临</title>
+    <link href="css/login.css" rel="stylesheet" type="text/css" />
+    <script>
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"
+        ];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    };
+    if (IsPC()) {
+        location.href = "../jinsha.html";
+    }
+    </script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div id="particles-js"></div>
+        <div class="content">
+            <div class="urlBox">
+                <span class="fl">www.38756</span>
+                <span class="fr">.com</span>
+                <span id="cw" class="fr"></span>
+            </div>
+        </div>
+        <a id="visite">请点击继续访问</a>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/particles.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+
+</html>
