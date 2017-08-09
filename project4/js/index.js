@@ -29,7 +29,7 @@ function lb(x) {
     } else {
         key++
     }
-    console.log("计数：",key)
+    console.log("计数：", key)
     setTimeout(function() {
         if (stop) {
             return
@@ -55,9 +55,9 @@ btn.mouseenter(function() {
     stop = true;
 
 })
-btn.on("click",function(){
-    console.log("点击结果：",list[key].word,list[key].url);
-    location.href=list[key].url;
+btn.on("click", function() {
+    console.log("点击结果：", list[key].word, list[key].url);
+    location.href = list[key].url;
 });
 btn.mouseleave(function(e) {
     var that = this;
@@ -72,6 +72,18 @@ btn.mouseleave(function(e) {
     }, 2000)
 })
 
+// function isIE() {
+//     var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
+//     console.log(userAgent)
+//     var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器  
+//     if (isIE) {
+//         alert("IE")
+//     } else {
+//         alert("bushi ie")
+//         return "-1";
+//     }
+// }
 $(document).ready(function() {
     lb(key);
+    // isIE()
 });

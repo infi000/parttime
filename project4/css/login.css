@@ -4,6 +4,7 @@ body {
     height: 100%;
     overflow: hidden;
     background: #000;
+    font-family: "微软雅黑"
 }
 
 *:focus {
@@ -28,12 +29,13 @@ canvas {
 }
 
 .content {
-    width: 100%;
-    height: 220px;
+    width: 630px;
+    height: 170px;
     position: absolute;
     top: 50%;
-    margin-top: -110px;
-	left: 0;
+    margin-top: -85px;
+    left: 50%;
+    margin-left: -315px;
     text-align: center;
 }
 
@@ -66,9 +68,10 @@ i {
     font-size: 60px;
     font-weight: 600;
     letter-spacing: 2px;
-    background: -webkit-linear-gradient(top, #fc0, #ffeb1b 50%, #dfd71b 51%, #fff);
+    color: gold;
+/*    background: -webkit-linear-gradient(top, #fc0, #ffeb1b 50%, #dfd71b 51%, #fff);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;*/
 }
 
 .content p {
@@ -88,6 +91,8 @@ i {
     border-radius: 10px;
     font-size: 20px;
     cursor: pointer;
+    letter-spacing: 0.3em;
+    font-weight: 600;
 }
 
 #visite:hover {
@@ -99,10 +104,11 @@ i {
     text-align: center;
 }
 .a1 {
-    background: -webkit-linear-gradient(top, #fc0, #f30 50%, #c00 51%, #600);
+/*    background: -webkit-linear-gradient(top, #fc0, #f30 50%, #c00 51%, #600);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    float: left;
+    -webkit-text-fill-color: transparent;*/
+    color: #FF2F00;
+    display: inline-block;
     -webkit-animation: animations 1.5s linear infinite;
     -moz-animation: animations 1.5s linear infinite;
     animation: animations 1.5s linear infinite;
