@@ -1,0 +1,65 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+        <link href='http://cdn.webfont.youziku.com/webfonts/nomal/106324/46758/598bd957f629d80594bb9aa3.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+    <div class="wrap">
+        <a href="../index.html?play=no#resturants" class="backIndex">&lt;</a>
+        <div class="page">
+            <div class="container">
+                <div class="lm_con_l">
+                    <dl>
+                        <dt>
+                            <div class="lm_map" id="googleMap"><img src="../static/img/loading.gif"></div>
+                        </dt>
+                        <dd>
+                            <ul>
+                                <li>Guangzhou Jiujia(Guangzhou Restaurant), No.2, Wenchang Road </li>
+                                <li>Lianxiang Lou(Liangxiang Resturant), No.67, Dishifu Road</li>
+                                <li>Taotao Ju Jiujia (Taotao Ju Restaurant), No.20, Dishifu Road</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="lm_con_r">
+                    <div class="page_article">
+                        <h2>Breakfast</h2>
+                        <p>
+                            Yum cha is a Cantonese-style morning or afternoon tea that includes the eating of dim sum and other baked goods, which is one of the most important parts of the traditional culture of Guangdong. When you’re in Guangzhou, be sure to make it a point to stop in at the local tea houses regularly for yum cha. Reminiscent of British tea (linktk), it serves the same purpose and will, therefore, help ensure you can keep your energy up throughout a day filled with sightseeing.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer></footer>
+    </div>
+    <script src="../static/js/index.js"></script>
+    <script>
+    function loadScript() {
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBzE9xAESye6Kde-3hT-6B90nfwUkcS8Yw&sensor=false&callback=initialize";
+        document.body.appendChild(script);
+    }
+
+    function initialize() {
+        var mapProp = {
+            center: new google.maps.LatLng(23.537428930395738,113.58313144871829),
+            zoom: 7,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    }
+    window.onload = loadScript;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,336 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.wrap {
+    position: relative;
+    font-family: 'HelveticaNeuec6f72461519f54';
+}
+
+#headerBox {
+    width: 100%;
+    padding-top: 194px;
+}
+
+header {
+    background-image: url(../img/homepage.jpg);
+    background-size: cover;
+    background-position: center;
+    max-width: 1000px;
+    width: 100%;
+    max-height: 540px;
+    margin: 0 auto;
+
+    /*height: 600px;*/
+}
+
+.videoPage {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.videoPage video {
+    width: 100%;
+    height: 100%;
+}
+
+.video_btn_skip {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+
+    padding: 10px 20px;
+    color: #6a92a7;
+    cursor: pointer;
+    z-index: 1;
+    font-weight: 600;
+    font-family: '微软雅黑'
+}
+
+.video_btn_skip:hover {
+    color: #006699;
+}
+
+.h50 {
+    height: 50px;
+    width: 100%;
+}
+
+.hidden {
+    overflow: hidden;
+}
+
+.container {
+    /*padding: 95px;*/
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.nav {
+    width: 100%;
+    max-width: 1000px;
+    height: 74px;
+    line-height: 74px;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-left: -500px;
+    background: #fff;
+    font-family: arial;
+}
+
+.dotte {
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    left: 0;
+}
+
+.dotte svg {
+    width: 100%;
+    height: 5px;
+    position: absolute;
+}
+
+
+.path2 {
+    stroke: #000;
+    stroke-width: 4;
+    stroke-dasharray: 10, 10;
+    stroke-linejoin: round;
+    stroke-linecap: butt;
+    animation: draw 5s linear infinite;
+}
+
+@keyframes draw {
+    to {
+        stroke-dashoffset: 96;
+    }
+}
+
+.nav .nav_tag {
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    -o-flex: 1;
+    flex: 1;
+    text-align: center;
+    z-index: 1;
+}
+
+.nav .nav_tag a {
+    color: #000;
+    font-weight: 800;
+    font-size: 26px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav .nav_tag .visited {
+    color: #006699;
+}
+
+.nav .nav_tag a:hover {
+    color: #006699
+}
+
+section {
+    z-index: 1;
+    position: relative;
+    padding-top: 124px;
+    box-sizing: border-box;
+}
+
+#overview {}
+
+#overview p {
+    font-size: 28px;
+    line-height: 40px;
+    padding: 0 10px;
+    letter-spacing: 2px;
+    
+}
+
+#landmarks ul li {
+    width: 18%;
+    margin: 1%;
+    float: left;
+    list-style: none;
+}
+
+#landmarks ul li a {
+    cursor: pointer;
+}
+
+#landmarks ul li img {
+
+    width: 100%;
+}
+
+#resturants ul li {
+    width: 30%;
+    margin: 1%;
+    float: left;
+    list-style: none;
+    position: relative;
+}
+
+#resturants ul li a {
+    cursor: pointer;
+}
+
+#resturants ul li img {
+    width: 100%;
+}
+
+#resturants ul li span {
+    position: absolute;
+    bottom: 10%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 28px;
+    color: #006699;
+    font-weight: bold;
+    font-family: arial;
+}
+
+footer {
+    height: 130px;
+}
+
+.backIndex {
+    position: absolute;
+    left: 20px;
+    font-size: 50px;
+    color: #006699;
+    text-decoration: none;
+}
+
+
+
+/*lm*/
+
+.lm_con_l {
+    float: left;
+    width: 48%;
+}
+
+.lm_map {
+    width: 100%;
+    height: 300px;
+    line-height: 300px;
+    color: #fff;
+    text-align: center;
+    background: #006699;
+    margin-bottom: 30px;
+}
+
+.lm_con_l li {
+    font-size: 28px;
+    line-height: 40px;
+    color: #676767;
+}
+
+.lm_con_r {
+    float: right;
+    width: 48%;
+}
+
+.page_article h2 {
+    font-size: 32px;
+    padding-bottom: 30px;
+}
+
+.page_article p {
+    font-size: 28px;
+    line-height: 40px;
+    letter-spacing: 2px;
+}
+
+
+
+
+/*rs*/
+
+.rs_header {
+    background-image: url(../img/rs.jpg);
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width: 1000px) {
+    .nav {
+        /*width: 98%;*/
+        left: 0;
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .backIndex {
+        display: none;
+    }
+    .nav {
+        width: 98%;
+        left: 1%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    #landmarks ul li {
+        width: 46%;
+        margin: 2%;
+    }
+    .nav .nav_tag a {
+        font-size: 14px;
+    }
+
+    #overview p {
+        font-size: 18px;
+        line-height: 30px;
+    }
+    #resturants ul li {
+        width: 98%;
+        margin: 1%;
+    }
+    .lm_con_l,
+    .lm_con_r {
+        float: none;
+        width: 100%;
+    }
+    .lm_con_l {
+        margin-bottom: 20px;
+    }
+
+    .lm_con_l li {
+        font-size: 18px;
+        width: 98%;
+        margin: 0 auto;
+    }
+
+    .page_article {
+
+        margin: 0 auto;
+        width: 98%;
+    }
+    .page_article h2 {
+        font-size: 20px;
+    }
+    .page_article p {
+        font-size: 18px;
+        line-height: 30px;
+    }
+}
