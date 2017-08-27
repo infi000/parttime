@@ -1,0 +1,63 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    height: 80px;
+    width: 100%;
+    /*background: #000;*/
+}
+
+header ul {
+    overflow: hidden;
+    height: 100%;
+    float: right;
+    margin-right: 10px;
+}
+
+header li {
+    float: left;
+    height: 100%;
+    list-style: none;
+}
+
+header li a {
+    padding: 0 10px;
+    height: 100%;
+    line-height: 80px;
+    color: #9E9E9E;
+    text-decoration: none;
+	cursor: pointer;
+}
+
+header li a:hover {
+
+    color: #000
+}
+
+#dragcon a{
+	box-sizing:border-box;
+}
+#dragcon a:hover{
+	border: 1px solid #ccc;
+}
+#dialog-confirm {
+    background: #ccc;
+    width: 300px;
+    position: fixed;
+    left: 50%;
+    top: 20%;
+    margin-left: -150px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.input_group {
+    margin-bottom: 10px;
+}
+
+.input_group textarea {
+    resize: none;
+}
