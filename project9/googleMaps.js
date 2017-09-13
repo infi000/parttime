@@ -1,8 +1,8 @@
 //              https://developers.google.com/maps/   for all documentation 
 //we need a global map to be able to easily add markers after map initialization
-var map;
+var map,infowindow;
 
-function createMarker(domElm, latLongStr) {
+function createMarker(domElm, latLongStr,imgEle) {
 
     //repurposed from JscripFromFlickr.js
     var locDetails = latLongStr.split('; ');
@@ -24,20 +24,26 @@ function createMarker(domElm, latLongStr) {
                 position: myLatlng,
                 map: map
             });
-
             //makes the focus go to entry
             marker.addListener('click', function() {
                 //dom elm is the same as newdomelm ie its the referance to the actual object
                 $(document).scrollTop(domElm.offset().top);
             });
-            marker.addListener("mouseOver", function() {
-                console.log("asdf")
-            })
+            marker.addListener("mouseover", function(e) {
+                infowindow.content=imgEle;
+                infowindow.open(map, marker);
+            });
         }
 
     }
 
 }
+
+$('body').on("mouseover", function(e) {
+    var xx = e.pageX;
+    var yy = e.pageY;
+    console.log(xx + "--------" + yy)
+})
 
 function iterateRecords(data) {
 
@@ -60,9 +66,9 @@ function iterateRecords(data) {
             );
             //adds element to the page
             $('#records').append(newDomElm);
-
+            var imgEle='<img src="'+recordImage+'">';
             //create a marker
-            createMarker(newDomElm, recordLocation);
+            createMarker(newDomElm, recordLocation,imgEle);
         }
     });
 }
@@ -75,6 +81,9 @@ function initMap() {
         zoom: 4,
         center: uluru
     });
+     infowindow = new google.maps.InfoWindow({
+     
+     });
     if (localStorage.getItem('slqData')) {
         data = localStorage.getItem('slqData');
         data = JSON.parse(data);
