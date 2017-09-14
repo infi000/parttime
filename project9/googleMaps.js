@@ -1,8 +1,8 @@
 //              https://developers.google.com/maps/   for all documentation 
 //we need a global map to be able to easily add markers after map initialization
-var map,infowindow;
+var map, infowindow;
 
-function createMarker(domElm, latLongStr,imgEle) {
+function createMarker(domElm, latLongStr, imgEle) {
 
     //repurposed from JscripFromFlickr.js
     var locDetails = latLongStr.split('; ');
@@ -30,7 +30,7 @@ function createMarker(domElm, latLongStr,imgEle) {
                 $(document).scrollTop(domElm.offset().top);
             });
             marker.addListener("mouseover", function(e) {
-                infowindow.content=imgEle;
+                infowindow.setContent(imgEle);
                 infowindow.open(map, marker);
             });
         }
@@ -66,9 +66,9 @@ function iterateRecords(data) {
             );
             //adds element to the page
             $('#records').append(newDomElm);
-            var imgEle='<img src="'+recordImage+'">';
+            var imgEle = '<img src="' + recordImage + '">';
             //create a marker
-            createMarker(newDomElm, recordLocation,imgEle);
+            createMarker(newDomElm, recordLocation, imgEle);
         }
     });
 }
@@ -81,9 +81,7 @@ function initMap() {
         zoom: 4,
         center: uluru
     });
-     infowindow = new google.maps.InfoWindow({
-     
-     });
+    infowindow = new google.maps.InfoWindow({});
     if (localStorage.getItem('slqData')) {
         data = localStorage.getItem('slqData');
         data = JSON.parse(data);
