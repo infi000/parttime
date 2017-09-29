@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>desktop</title>
+    <link href="../css/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="wrap">
+        <header>Our Design For DELL</header>
+        <div id="content" class="content">
+            <div class="content_style">
+                <div class="content_box">
+                    <section style="width: 600px;" id="desktop_box">
+                    </section>
+                </div>
+            </div>
+            <div id="menulist" class="menu_style">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../template/Desktop.html" class="active">Desktop</a></li>
+                    <li><a href="../template/Laptop.html">Laptop</a></li>
+                    <li><a href="../template/AboutUs.html">About Us</a></li>
+                    <li><a href="../template/ContactUs.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <footer>Copyright © Jiaqi Wang 2017</footer>
+    </div>
+</body>
+<script src='../js/data.js'></script>
+<script>
+var desktop = new Dell_data('desktop'),
+    eleDesktop = document.getElementById('desktop_box');
+eleDesktop.innerHTML = desktop.cDom();
+</script>
+
+</html>

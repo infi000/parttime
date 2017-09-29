@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Contact Us</title>
+    <link href="../css/main.css" rel="stylesheet" type="text/css" />
+    <style>
+    body {
+        background-image: url(../img/bg_2.jpg);
+    }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header>Our Design For DELL</header>
+        <div id="content" class="content">
+            <div class="content_style">
+                <div class="content_box">
+                    <section>
+                        <h2>Contact Us</h2>
+                        <div id='googleMap'></div>
+                        <form action="">
+                            <div class="form-group">
+                                <label>name:</label>
+                                <input type="text" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label>phone:</label>
+                                <input type="number" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label>email:</label>
+                                <input type="text" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label>introduce:</label>
+                                <textarea name="desc"></textarea>
+                            </div>
+                            <div class="form-group text-center">
+                                <a class="btn" id="btn_clear">clear</a>
+                                <a class="btn" id="btn_submit">submit</a>
+                            </div>
+                        </form>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>address</th>
+                                    <th colspan="2" class="text-right">phone number</th>
+                                </tr>
+                                <tr>
+                                    <td>Small & Medium Business</td>
+                                    <td><span class="m_line"></span></td>
+                                    <td>1800-812-392</td>
+                                </tr>
+                                <tr>
+                                    <td>500-3500 employees</td>
+                                    <td><span class="m_line"></span></td>
+                                    <td>1300-362-042</td>
+                                </tr>
+                                <tr>
+                                    <td>Over 3500 employees</td>
+                                    <td><span class="m_line"></span></td>
+                                    <td>1300-303-270</td>
+                                </tr>
+                                <tr>
+                                    <td>Education & Local Government</td>
+                                    <td><span class="m_line"></span></td>
+                                    <td>1300-303-197</td>
+                                </tr>
+                                <tr>
+                                    <td>Other Government</td>
+                                    <td><span class="m_line"></span></td>
+                                    <td>1300-303-270</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3">
+                                        For Work
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Mon – Fri
+                                    </td>
+                                    <td><span class="m_line"></span></td>
+                                    <td> 9:30 am – 6:30 pm</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            </div>
+            <div id="menulist" class="menu_style">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../template/Desktop.html">Desktop</a></li>
+                    <li><a href="../template/Laptop.html">Laptop</a></li>
+                    <li><a href="../template/AboutUs.html">About Us</a></li>
+                    <li><a href="../template/ContactUs.html" class="active">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <footer>Copyright © Jiaqi Wang 2017</footer>
+    </div>
+</body>
+<script src='../js/main.js'></script>
+<script>
+window.onload = loadScript;
+var eleClear = document.getElementById('btn_clear'),
+    eleSubmit = document.getElementById('btn_submit'),
+    form = document.querySelector('form'),
+    form_name = document.querySelector("input[name='name']"),
+    form_phone = document.querySelector("input[name='phone']"),
+    form_email = document.querySelector("input[name='email']"),
+    form_desc = document.querySelector("textarea[name='desc']");
+eleClear.addEventListener("click", function(e) {
+    form_name.value = "";
+    form_phone.value = "";
+    form_email.value = "";
+    form_desc.value = "";
+});
+eleSubmit.addEventListener("click", function(e) {
+    if(form_name.value&&form_phone.value&&form_email.value&&form_desc.value){
+        if(!isEmail(form_email.value)){
+           alert("sorry! enter correct email");
+           return 
+        }
+        alert("thank you!")
+    }else{
+        alert("sorry!")
+    }
+});
+</script>
+
+</html>
