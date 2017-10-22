@@ -1,6 +1,7 @@
 body {
     font-family: "Microsoft Yahei";
 }
+
 .wrap {
     position: absolute;
 
@@ -40,10 +41,11 @@ body {
 
     color: #fff;
     background: #ccc;
-     box-shadow: 1px 1px 5px 1px #434343;
+    box-shadow: 1px 1px 5px 1px #434343;
 }
-.btn:active{
-    box-shadow:none;
+
+.btn:active {
+    box-shadow: none;
 }
 
 .btn-start {
@@ -54,9 +56,10 @@ body {
     background: #009688;
 }
 
-.btn-ans{
+.btn-ans {
     background: #4CAF50;
 }
+
 
 
 /*操作区 */
@@ -91,11 +94,13 @@ body {
 
     color: #fff;
 }
+
 .action-time {
     height: 60px;
 
     text-align: center;
 }
+
 .action-time span {
     font-size: 20px;
 }
@@ -103,6 +108,12 @@ body {
 .action-q {
     text-align: center;
 }
+
+.action-q-msg img {
+    width: 100%;
+    height: 230px;
+}
+
 .action-question {
     position: relative;
 
@@ -118,6 +129,7 @@ body {
 
     box-shadow: 1px 1px 5px 1px #434343;
 }
+
 .action-q-num {
     position: absolute;
     top: 4px;
@@ -125,112 +137,126 @@ body {
 
     height: 30px;
     /*width: 30px;*/
-
     line-height: 30px;
     /*background: yellow;*/
 }
+
+.action-res {
+    font-size: 16px;
+    max-height: 200px;
+    overflow: auto;
+}
+
+.action-res span {
+    display: inline-block;
+    margin: 10px
+}
+
+
 /*显示区*/
+
 .status {
-    position: absolute;
-    top: 0;
-    left: 50%;
-
-    margin-left: -150px;
-    width: 300px;
+    width: 98%;
+    margin: 0 auto;
     height: 80px;
-
     text-align: center;
-
     color: #fff;
     background: #000;
-
     box-shadow: 1px 1px 5px 1px #434343;
+    line-height: 80px;
+    font-size: 18px;
+}
+
+.status-v {
+    color: #4CAF50;
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.status-x {
+    color: #e32c1f;
+    font-size: 36px;
+    font-weight: 600;
 }
 
 .view {
     position: relative;
-
-    margin: 100px auto 0;
+    margin: 0 auto;
     border-radius: 2px;
-    width: 604px;
-    height: 604px;
-
-    background: #fff;
-
-    box-shadow: 1px 1px 5px 1px #434343;
+    width: 810px;
+    height: 810px;
+    background: #000;
+    border-radius: 50%;
+    border: 1px solid #fff;
 }
 
 .cb {
     overflow: hidden;
-
     box-sizing: border-box;
-    border: 1px solid #000;
+    border: 1px solid #fff;
     border-radius: 50%;
 }
 
 .cb1 {
     position: absolute;
-
-    width: 250px;
-    height: 250px;
+    width: 270px;
+    height: 270px;
 }
 
 .cb1-1 {
-    top: 0;
-    left: 0;
+    top: 88px;
+    left: 72px;
 }
 
 .cb1-2 {
-    top: 0;
-    right: 0;
+    top: 88px;
+    right: 72px;
 }
 
 .cb1-3 {
     top: 50%;
     left: 50%;
-
-    margin-top: -125px;
-    margin-left: -125px;
+    margin-top: -135px;
+    margin-left: -135px;
 }
 
 .cb1-4 {
-    bottom: 0;
-    left: 0;
+    bottom: 88px;
+    left: 72px;
 }
 
 .cb1-5 {
-    right: 0;
-    bottom: 0;
+    right: 88px;
+    bottom: 72px;
 }
 
 .cb2 {
     display: block;
-
     margin: 0 auto;
-    width: 50px;
-    height: 50px;
-
+    width: 54px;
+    height: 54px;
     font-size: 18px;
-    line-height: 50px;
+    line-height: 54px;
     text-align: center;
-
     cursor: pointer;
 }
-.cb2:hover {
-    box-sizing: 1px;;
 
+.cb2:hover {
+    box-sizing: 1px;
     background: #ddd;
 }
+
 .cb2:active {
+    color: #fff;
+    background: #fff;
+}
+
+.active {
     color: #fff;
     background: #000;
 }
 
-.active{
-     color: #fff;
-    background: #000;
-}
-.active:hover{
-       color: #fff;
+.active:hover {
+    color: #fff;
     background: #000;
 }

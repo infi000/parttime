@@ -22,7 +22,7 @@
                 <p>
                     <b><font size="4">As a top company in the Computers, <br/>Technology and Office Equipment<br /> industry Dell specialize in designing, <br/>manufacturing and marketing innovative <br/>products,services and technologies including Desktops,<br/> Servers, Notebooks and Printers.</font></b>
                 </p>
-                <img src="./static/img/dell.png" algin='middle'>
+                <img src="./static/img/dell.png" algin='middle' id="logo_img">
             </section>
         </div>
     </div>
@@ -40,5 +40,17 @@
         <footer><i>Copyright © Jiaqi Wang 2017</i></footer>
     </div>
 </body>
+<script>
+    var eleLog=document.getElementById("logo_img"),
+        rotatey=0;
+    eleLog.addEventListener("click",function(){
+        rotatey+=720;
+        this.setAttribute("style","transform: rotatey("+rotatey+"deg)");
+        if(rotatey>1000){
+            rotatey=0;
+        }
+    })
 
+
+</script>
 </html>

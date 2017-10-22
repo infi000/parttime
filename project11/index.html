@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>边看边聊_弹幕</title>
+    <title>游戏</title>
     <link rel="stylesheet" href="./static/css/reset.css">
     <link rel="stylesheet" href="./static/css/main.css">
     <script src="./static/js/tools.js"></script>
@@ -16,6 +16,8 @@
         <div class="g-bd1 f-cb g-h">
             <!-- 操作区 -->
             <div class="g-sd1 g-h action">
+              <div class="status">
+                    </div>
                 <div class="action-time">
                     <h2 class="action-title">倒计时：</h2>
                     <span class="action-time-num">00</span>
@@ -24,61 +26,61 @@
                     <h2 class="action-title">题目：</h2>
                     <div class="action-question">
                         <span class="action-q-num">1:</span>
-                        <p>锄禾日当午
-                            <br>汗滴禾下土</p>
+                        <p class="action-q-msg"></p>
                     </div>
                 </div>
                 <div class="action-s">
                     <h2 class="action-title">得分：</h2>
+                    <p class="action-res"></p>
                 </div>
                 <div class="action-tools">
                     <a class="btn btn-start">开始</a>
-                    <a class="btn btn-set">设置</a>
+                    <a class="btn btn-set" href="./set.html" target="_blank">设置</a>
                 </div>
             </div>
             <div class="g-mn1 g-h">
                 <div class="g-mn1c g-h f-pr" style="padding-top: 1px;box-sizing: border-box;overflow: auto;">
                     <!-- 显示区 -->
-                    <div class="status">
-                    </div>
+                  
                     <div class="view">
                         <div class="cb cb1 cb1-1">
-                            <div class="cb cb2">1</div>
-                            <div class="cb cb2">2</div>
-                            <div class="cb cb2">3</div>
-                            <div class="cb cb2">4</div>
-                            <div class="cb cb2">5</div>
+                            <div class="cb cb2" datatype="1"></div>
+                            <div class="cb cb2" datatype="2"></div>
+                            <div class="cb cb2" datatype="3"></div>
+                            <div class="cb cb2" datatype="4"></div>
+                            <div class="cb cb2" datatype="5"></div>
                         </div>
                         <div class="cb cb1 cb1-2">
-                            <div class="cb cb2">6</div>
-                            <div class="cb cb2">7</div>
-                            <div class="cb cb2">8</div>
-                            <div class="cb cb2">9</div>
-                            <div class="cb cb2">10</div>
+                            <div class="cb cb2" datatype="16"></div>
+                            <div class="cb cb2" datatype="17"></div>
+                            <div class="cb cb2" datatype="18"></div>
+                            <div class="cb cb2" datatype="19"></div>
+                            <div class="cb cb2" datatype="20"></div>
                         </div>
                         <div class="cb cb1 cb1-3">
-                            <div class="cb cb2">11</div>
-                            <div class="cb cb2">12</div>
-                            <div class="cb cb2">13</div>
-                            <div class="cb cb2">14</div>
-                            <div class="cb cb2">15</div>
+                            <div class="cb cb2" datatype="11"></div>
+                            <div class="cb cb2" datatype="12"></div>
+                            <div class="cb cb2" datatype="13"></div>
+                            <div class="cb cb2" datatype="14"></div>
+                            <div class="cb cb2" datatype="15"></div>
                         </div>
                         <div class="cb cb1 cb1-4">
-                            <div class="cb cb2">16</div>
-                            <div class="cb cb2">17</div>
-                            <div class="cb cb2">18</div>
-                            <div class="cb cb2">19</div>
-                            <div class="cb cb2">20</div>
+                            <div class="cb cb2" datatype="6"></div>
+                            <div class="cb cb2" datatype="7"></div>
+                            <div class="cb cb2" datatype="8"></div>
+                            <div class="cb cb2" datatype="9"></div>
+                            <div class="cb cb2" datatype="10"></div>
+                          
                         </div>
                         <div class="cb cb1 cb1-5">
-                            <div class="cb cb2">21</div>
-                            <div class="cb cb2">22</div>
-                            <div class="cb cb2">23</div>
-                            <div class="cb cb2">24</div>
-                            <div class="cb cb2">25</div>
+                            <div class="cb cb2" datatype="21"></div>
+                            <div class="cb cb2" datatype="22"></div>
+                            <div class="cb cb2" datatype="23"></div>
+                            <div class="cb cb2" datatype="24"></div>
+                            <div class="cb cb2" datatype="25"></div>
                         </div>
                     </div>
-                    <div class="f-tac" style="margin-top: 20px;"><a class="btn btn-ans">确定</a></div>
+                   <!--  <div class="f-tac" style="margin-top: 20px;"><a class="btn btn-ans">确定</a></div> -->
                     
                 </div>
             </div>
