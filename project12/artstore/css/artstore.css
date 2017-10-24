@@ -19,7 +19,9 @@ body {
 .font-cab{
    font-family: 'Cabin Sketch', cursive;
 }
-
+.font-12{
+  font-size:12px;
+}
 .font-14{
   font-size: 14px;
 }
