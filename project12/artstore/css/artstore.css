@@ -9,7 +9,7 @@
 */
 
 body {
-  padding-bottom: 40px;
+  /*padding-bottom: 40px;*/
   color: #5a5a5a;
 }
 
@@ -20,21 +20,35 @@ body {
    font-family: 'Cabin Sketch', cursive;
 }
 .font-12{
-<<<<<<< HEAD
   font-size:12px;
 }
-=======
-  font-size: 12px;
-}
 
->>>>>>> a8b534c2eb211182330278bdb9661d8322a55f93
 .font-14{
   font-size: 14px;
+}.font-16{
+  font-size: 16px;
+}
+
+.font-18{
+  font-size: 18px;
+}
+.font-24{
+  font-size: 24px;
 }
 .font-40{
   font-size: 40px;
 }
+.no-border{
+  border: none!important;
+}
 
+.footer{
+  background: #000;
+  color: #fff;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 40px;
+}
 
 /* index
 -------------------------------------------------- */
@@ -112,7 +126,7 @@ body {
 
 
 
-/* artists
+/* work
 -------------------------------------------------- */
 #navbar{
   margin-top: 0;
@@ -125,12 +139,33 @@ body {
 .navbar-nav .glyphicon{
   margin-right: 2px;
 }
-.panel-body .list-group-item{
-  border: none;
-}
+
 .panel-footer button.font-12{
   padding: 2px 4px;
 }
+
+.footer-work{
+      background: #ccc;
+    padding-top: 20px;
+}
+.footer-work dt{
+  margin-bottom: 10px;
+}
+.footer-work dd{
+  margin-bottom: 10px;
+}
+
+/* about
+-------------------------------------------------- */
+.about-jumbo{
+    background: url(../images/whistler.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 400px;
+    background-position: 20px -34px;
+      color: #fff;  
+}
+
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */
