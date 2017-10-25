@@ -19,6 +19,9 @@ body {
 .font-cab{
    font-family: 'Cabin Sketch', cursive;
 }
+.font-12{
+  font-size: 12px;
+}
 
 .font-14{
   font-size: 14px;
@@ -116,6 +119,12 @@ body {
 
 .navbar-nav .glyphicon{
   margin-right: 2px;
+}
+.panel-body .list-group-item{
+  border: none;
+}
+.panel-footer button.font-12{
+  padding: 2px 4px;
 }
 
 /* RESPONSIVE CSS
