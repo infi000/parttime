@@ -18,19 +18,19 @@
 
 <body>
     <div class="page" id="page">
-          <div class="swiper-container f-con">
+        <div class="swiper-container f-con">
             <div class="swiper-wrapper f-con">
                 <a class="swiper-slide f-con" id="img_bg">
                 </a>
-                <a class="swiper-slide f-con">
+                 <a class="swiper-slide f-con">
                     <p class="f-con" style="background: black">
-
+                        <img src="./image/loading.gif" class="loading">
                     </p>
                 </a>
             </div>
         </div>
         <!-- 文章概况 -->
-       <!--  <div class="article" style="display: none">
+        <!--  <div class="article" style="display: none">
             <div class="btn-next"></div>
             <div class="article-con">
                 <h2 class="f-tac">总书记点击的经典诗词《明妃曲二首》</h2>
@@ -48,7 +48,7 @@
             </div>
         </div> -->
         <!-- 文章详情 -->
-      <!--   <div class="detail">
+        <!--   <div class="detail">
             <div class="btn-next"></div>
             <div class="detail-shi f-tac">
                 <h2>《明妃曲二首·其二》</h2>
@@ -72,26 +72,17 @@
         </div> -->
     </div>
     <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="js/swiper-3.4.2.min.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="./js/swiper-3.4.2.min.js"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
     <script>
-    var main=new Main();
+    var main = new Main();
     var mySwiper = new Swiper('.swiper-container', {
         direction: 'vertical',
-        loop: true,
         followFinger: true,
         touchRatio: 0.5, //拖动阻力
         longSwipesRatio: 0.2, //翻页距离
-        onInit: function(swiper) {
-            swiper.lockSwipeToPrev();
-        },
-        onSlideNextEnd: function(swiper) {
-            if (swiper.activeIndex == 2) {
-                swiper.lockSwipeToNext();
-                main.init();
-                // location.href = "jsbc.html";
-                /*page.changePower("#p0", "#p1");*/
-            }
+        onSlideChangeStart: function(swiper) {
+              main.init();
         }
     });
     </script>

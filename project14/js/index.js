@@ -1,21 +1,39 @@
 function Main() {
     var that = this;
     this.page = 0; //当前页数
-    this.init=function(){
+    this.init = function() {
         that.event();
         that.c_dom();
     };
     // 事件
     this.event = function() {
         //下一页，页数+1,创建新dom
-        $('body').on("click", '#btn_next', function(e) {
+        $('body').on("tap", '#btn_next', function(e) {
+            //判断时候到字后一页
+            var len = DATA.length - 1;
+            if (that.page >= len) {
+                alert("没有了");
+                return 
+            }
             that.page++;
             that.c_dom();
             // location.href=location.href+"#a"
         });
         //详情页
-        $('body').on("click","#btn_detail",function(e){
+        $('body').on("tap", "#btn_detail", function(e) {
             that.c_dom('detail');
+        });
+        //播放音频
+        $('body').on("tap", ".btn-voice", function(e) {
+            var ele_v = $("#voice"),
+                type = $(this).attr('datatype');
+            if (type == '1') {
+                ele_v[0].pause();
+                $(this).attr('datatype', '0').html('<i class="iconfont icon-bofang"></i>');
+            } else {
+                ele_v[0].play();
+                $(this).attr('datatype', '1').html('<i class="iconfont icon-zanting"></i>');
+            }
         });
     };
     /**
@@ -33,9 +51,9 @@ function Main() {
      * @return {[字符串]} [dom结构]
      */
     this.dom_article = function() {
-        if(!DATA[that.page]){
+        if (!DATA[that.page]) {
             alert("没有了")
-            return 
+            return
         }
         var opt = DATA[that.page].article || {},
             title = opt.title || "",
@@ -50,12 +68,12 @@ function Main() {
                         <h2 class="f-tac">' + title + '</h2>\
                         <p>' + part1 + '</p>\
                         <div class="article-img">\
-                            <a class="btn-voice"><i class="iconfont icon-bofang"></i></a>\
-                            <img src="./image/' + image + '" >\
+                            <a class="btn-voice" datatype="0"><i class="iconfont icon-bofang"></i></a>\
+                            <img src="./data/photo/' + image + '" >\
                             <p class="f-tar"><span class="article-from">' + from + '</span></p>\
                         </div>\
                         <p>' + part2 + '</p>\
-                        <audio src="./voice/' + voice + '" preload></audio>\
+                        <audio src="./data/voice/' + voice + '" id="voice" preload  ></audio>\
                     </div>\
                     <div class="bg-end">\
                         <div class="btn-detail" id="btn_detail"></div>\
@@ -68,6 +86,10 @@ function Main() {
      * @return {[字符串]} [dom结构]
      */
     this.dom_detail = function() {
+        if (!DATA[that.page]) {
+            alert("没有了")
+            return
+        }
         var opt = DATA[that.page].detail || {},
             title = opt.title || "",
             author = opt.author || "",
@@ -84,7 +106,7 @@ function Main() {
                       </div>\
                       <div class="detail-con">\
                           <p class="f-tac"><span class="article-from">' + from + '</span></p>\
-                          <audio src="./voice/' + voice + '" controls preload></audio>\
+                          <audio src="./data/voice/' + voice + '" id="voice"  controls preload></audio>\
                           <p>' + part2 + '</p>\
                       </div>\
                       <div class="bg-end">\
