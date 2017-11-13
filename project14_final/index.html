@@ -7,13 +7,16 @@
     <meta content="yes" name="apple-mobile-web-app-capable" />
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <meta content="telephone=no" name="format-detection" />
-    <title>粉丝狂欢节</title>
+    <title>总书记点击的经典诗词</title>
     <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/index.css" />
     <link rel="stylesheet" href="./css/swiper-3.4.2.min.css" />
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_468470_rs41ziw5e6zuxr.css" />
+    <!--<link rel="stylesheet" href="http://at.alicdn.com/t/font_468470_rs41ziw5e6zuxr.css" />-->
+    <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="./js/tools.js"></script>
     <script type="text/javascript" src="./js/data.js"></script>
+    <script type="text/javascript" src="./js/jweixin-1.0.0.js"></script>
+    <script src="http://i.vojs.cn/ljh/jhutils/weixin.js"></script>
 </head>
 
 <body>
@@ -21,9 +24,18 @@
         <div class="swiper-container f-con">
             <div class="swiper-wrapper f-con">
                 <a class="swiper-slide f-con" id="img_bg">
+                    <div id="square" class="container animated">
+                        <img src="image/xia.png">
+                        <img src="./image/bird.png" alt="" id="bird">
+                        <img src="./image/bird.png" alt="" id="bird2">
+                        <img src="./image/bird.png" alt="" id="bird3">
+                        <img src="./image/shan.png" alt="" id="shan">
+                        <img src="./image/shan.png" alt="" id="shan2">
+                        <img src="./image/shan.png" alt="" id="shan3">
+                    </div>
                 </a>
-                 <a class="swiper-slide f-con">
-                    <p class="f-con" style="background: black">
+                <a class="swiper-slide f-con">
+                    <p class="f-con" style="background: white">
                         <img src="./image/loading.gif" class="loading">
                     </p>
                 </a>
@@ -71,7 +83,6 @@
             </div>
         </div> -->
     </div>
-    <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="./js/swiper-3.4.2.min.js"></script>
     <script type="text/javascript" src="./js/index.js"></script>
     <script>
@@ -82,9 +93,39 @@
         touchRatio: 0.5, //拖动阻力
         longSwipesRatio: 0.2, //翻页距离
         onSlideChangeStart: function(swiper) {
-              main.init();
+            main.init();
+            wx.config({
+                // 配置信息, 即使不正确也能使用 wx.ready
+                debug: false,
+                appId: '',
+                timestamp: 1,
+                nonceStr: '',
+                signature: '',
+                jsApiList: []
+            });
+            wx.ready(function() {
+                document.getElementById('voice').play();
+            });
         }
     });
+    </script>
+    <script src="http://i.vojs.cn/ljh/jhutils/wxshare.js"></script>
+    <script>
+    jhUtils.setWxShare({
+        title: document.title,
+        desc: '聆听经典诗词，汲取精神力量！塑造文化自信，共圆中国梦想！',
+        link: location.href,
+        imgUrl: 'http://ossftp.vojs.tv/taoyue/cash/project100/image/beijing.png'
+    });
+    </script>
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?281046c303c18f150802aed1f2e10a90";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
     </script>
 </body>
 
