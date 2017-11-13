@@ -1,8 +1,8 @@
 /*首页*/
 
 .page {
-    overflow: hidden;
-    overflow-y: scroll;
+/*    overflow: hidden;
+    overflow-y: scroll;*/
 
     position: absolute;
     top: 0;
@@ -124,6 +124,7 @@
     padding-top: 1.6rem;
 
     background-image: url("../image/bg_1.png");
+    overflow: hidden;
 }
 
 .article .btn-detail {
@@ -212,6 +213,7 @@
     padding-top: 2.4rem;
 
     background-image: url("../image/bg_3.png");
+    overflow: hidden;
 }
 
 .detail h3 {
