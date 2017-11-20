@@ -37,12 +37,12 @@ const BALLS = {
 
 };
 const COINS = {
-    coin1: ["coin1", 420, 268, 8, 0.1, YELLOW, BLACK],
-    coin2: ["coin2", 503, 185, 8, 0.1, YELLOW, BLACK],
-    coin3: ["coin3", 589, 268, 8, 0.1, YELLOW, BLACK],
+    coin1: ["coin1", 420, 268, 8, 0.3, YELLOW, BLACK],
+    coin2: ["coin2", 503, 185, 8, 0.3, YELLOW, BLACK],
+    coin3: ["coin3", 589, 268, 8, 0.3, YELLOW, BLACK],
 };
-
-var obs, screenOne, screenTwo, screen = 1;
+const REDBOX=['redbox',300,200,20,5,'red'];
+var obs, screenOne, screenTwo, screen = 3;
 
 window.addEventListener("load", function() {
     //DOM Loaded
@@ -128,9 +128,12 @@ function obstacles(game) {
         for (var i = 0; i < this.balls.length; i++) {
             this.balls[i].animate(this.game.getContext());
         }
+        // this.game.getContext().save();
+        // this.game.getContext().scale(0.5, 1);
         for (var i = 0; i < this.coins.length; i++) {
             this.coins[i].animate(this.game.getContext());
         }
+        // this.game.getContext().restore();
     };
 }
 
@@ -169,24 +172,31 @@ function coin(name, x, y, radius, scale, color, border) {
         this.border = border,
         this.animate = function(ctx) {
             //Draw coin
-            // ctx.save()
+
 
             ctx.fillStyle = this.border;
-            // ctx.translate(50,250);
+
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.border_radius, 0, Math.PI * 2, true);
             // console.log(ctx)
             ctx.fill();
+
             ctx.beginPath();
             ctx.fillStyle = this.color;
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
 
             ctx.fill();
+
             // ctx.translate(50,250);
             // Animate
         };
 }
 
+function redbox(name,x,y,width,speed) {
+     this.name = name,
+        this.x = x,
+        this.y = y,
+}
 
 
 function SCREENONE(game) {
@@ -305,10 +315,10 @@ function SCREENONE(game) {
                 ey = e.offsetY;
             if (ex >= 400 && ex <= 600 && ey >= 340 && ey <= 380) {
                 can.canvas.addEventListener('click', function(e) {
-                    return ;
+                    return;
                 });
-                 can.canvas.addEventListener('mousemove', function(e) {
-                    return ;
+                can.canvas.addEventListener('mousemove', function(e) {
+                    return;
                 });
                 screen = 2;
             }
