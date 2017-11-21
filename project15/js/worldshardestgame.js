@@ -18,6 +18,14 @@ const SCREENS = {
         gameCenterWall: {
             top: 100,
             bottom: 355,
+        },
+        greenland: {
+            left_l: 210,
+            left_r: 382,
+            top: 140,
+            bottom: 288,
+            right_l: 613,
+            right_r: 788,
         }
     }
 };
@@ -41,8 +49,9 @@ const COINS = {
     coin2: ["coin2", 503, 185, 8, 0.3, YELLOW, BLACK],
     coin3: ["coin3", 589, 268, 8, 0.3, YELLOW, BLACK],
 };
-const REDBOX=['redbox',300,200,20,5,'red'];
-var obs, screenOne, screenTwo, screen = 3;
+const REDBOX = ['redbox', 300, 200, 20, 8, 'red', BLACK];
+var obs, tar, bx, screenOne, screenTwo, ctr, screen = 3,
+    deadNum = 0;;
 
 window.addEventListener("load", function() {
     //DOM Loaded
@@ -57,7 +66,8 @@ function startGame() {
     screenOne = new SCREENONE(game);
     screenTwo = new SCREENTWO(game);
     obs = new obstacles(game);
-
+    tar = new target(game);
+    bx = new box(game);
     // screenTwo=new screen_2(game;)
 }
 
@@ -68,15 +78,32 @@ function update() {
             screenOne.init();
             break;
         case 2:
-
             screenTwo.init();
             break;
         case 3:
             document.querySelector('p').style.display = 'flex';
             obs.animate();
+            tar.animate();
+            bx.animate();
             break;
     }
+}
 
+function reset(status) {
+    var s = status || "";
+    if (s == 'win') {
+        //赢
+        alert("win!");
+        deadNum = 0;
+        document.querySelector('p').innerHTML = '<span>LEVEL:<span>1</span>/50</span><span>DEATHS:<span>' + deadNum + '</span></span>';
+        bx = new box(game);
+        tar = new target(game);
+    } else {
+        //输掉
+        deadNum += 1;
+        document.querySelector('p').innerHTML = '<span>LEVEL:<span>1</span>/50</span><span>DEATHS:<span>' + deadNum + '</span></span>';
+        bx = new box(game);
+    }
 }
 
 //Engine
@@ -116,11 +143,6 @@ function obstacles(game) {
         ball.construct(BALLS.pair3.ball1),
         ball.construct(BALLS.pair3.ball2),
     ];
-    this.coins = [
-        coin.construct(COINS.coin1),
-        coin.construct(COINS.coin2),
-        coin.construct(COINS.coin3),
-    ];
     this.animate = function() {
         //loop through the balls array
         //draw the balls
@@ -128,12 +150,32 @@ function obstacles(game) {
         for (var i = 0; i < this.balls.length; i++) {
             this.balls[i].animate(this.game.getContext());
         }
+
+    };
+};
+
+function target(game) {
+    this.game = game;
+    this.coins = [
+        coin.construct(COINS.coin1),
+        coin.construct(COINS.coin2),
+        coin.construct(COINS.coin3),
+    ];
+    this.animate = function() {
         // this.game.getContext().save();
         // this.game.getContext().scale(0.5, 1);
         for (var i = 0; i < this.coins.length; i++) {
             this.coins[i].animate(this.game.getContext());
         }
-        // this.game.getContext().restore();
+    };
+}
+
+function box(game) {
+    this.game = game;
+    this.redbox = redbox.construct(REDBOX);
+    this.animate = function() {
+        this.redbox.animate(this.game.getContext());
+
     };
 }
 
@@ -192,10 +234,96 @@ function coin(name, x, y, radius, scale, color, border) {
         };
 }
 
-function redbox(name,x,y,width,speed) {
-     this.name = name,
+function redbox(name, x, y, width, speed, color, border) {
+    this.name = name,
         this.x = x,
         this.y = y,
+        this.speed = speed,
+        this.width = width,
+        this.color = color,
+        this.border = border,
+        this.animate = function(ctx) {
+            this.fail();
+            this.collect();
+            this.win();
+            this.ctr = ctr || "";
+            ctx.fillStyle = this.border;
+            switch (this.ctr) {
+                case 'left':
+                    this.x -= speed;
+                    break;
+                case 'up':
+                    this.y -= speed;
+                    break;
+                case 'right':
+                    this.x += speed;
+                    break;
+                case 'down':
+                    this.y += speed;
+                    break;
+
+            };
+         
+            var gameCenterWall = SCREENS.screen3.gameCenterWall;
+            var greenland = SCREENS.screen3.greenland;
+            if (this.x < greenland.left_r) {
+                if (this.x > greenland.left_l && this.y > greenland.top && this.y < greenland.bottom) {
+
+                    ctx.fillRect(this.x, this.y, this.width, this.width);
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(this.x + 2, this.y + 2, this.width - 4, this.width - 4);
+                    return;
+                }
+            }
+
+            // ctx.fillRect(this.x, this.y, this.width, this.width);
+            // ctx.fillStyle = this.color;
+            // ctx.fillRect(this.x + 2, this.y + 2, this.width - 4, this.width - 4);
+        },
+        this.fail = function() {
+            //判断失败
+            var o = obs.balls;
+            for (var i = 0; i < o.length; i++) {
+                var o_x = o[i].x,
+                    o_y = o[i].y,
+                    o_w = o[i].radius,
+                    b_x = this.x,
+                    b_y = this.y,
+                    b_w = this.width,
+                    x = o_x - b_x,
+                    y = o_y - b_y,
+                    limit = o_w + b_w;
+                if ((x <= limit && x >= -o_w) && (y <= limit && y >= -o_w)) {
+                    reset();
+                    return;
+                }
+            }
+        },
+        this.collect = function() {
+            var o = tar.coins;
+            for (var i = 0; i < o.length; i++) {
+                var o_x = o[i].x,
+                    o_y = o[i].y,
+                    o_w = o[i].radius,
+                    b_x = this.x,
+                    b_y = this.y,
+                    b_w = this.width,
+                    x = o_x - b_x,
+                    y = o_y - b_y,
+                    limit = o_w + b_w;
+                if ((x <= limit && x >= -o_w) && (y <= limit && y >= -o_w)) {
+                    o.splice(i, 1);
+                    return;
+                }
+            }
+        },
+        this.win = function() {
+            var o = tar.coins;
+            if (o.length == 0) {
+                alert("You Made It!");
+                return;
+            }
+        }
 }
 
 
@@ -365,4 +493,35 @@ function SCREENTWO(game) {
         ctx.textAlign = 'center';
         ctx.fillText('YOU DONT’T STAND A CHANCE.', 500, 200);
     };
+}
+
+
+document.onkeydown = function(e) {
+    if (screen == 3) {
+        console.log(bx.redbox.x, bx.redbox.y)
+        var code = e.keyCode;
+        switch (code) {
+            case 37:
+                //left
+                ctr = 'left';
+                break;
+            case 38:
+                //up
+                ctr = 'up';
+                break;
+            case 39:
+                //right
+                ctr = "right";
+                break;
+            case 40:
+                //down
+                ctr = "down";
+                break;
+        }
+    }
+};
+document.onkeyup = function(e) {
+    if (screen == 3) {
+        ctr = '';
+    }
 }
