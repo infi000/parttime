@@ -26,6 +26,7 @@ const SCREENS = {
             bottom: 288,
             right_l: 613,
             right_r: 788,
+            win: 700
         }
     }
 };
@@ -50,7 +51,7 @@ const COINS = {
     coin3: ["coin3", 589, 268, 8, 0.3, YELLOW, BLACK],
 };
 const REDBOX = ['redbox', 300, 200, 20, 8, 'red', BLACK];
-var obs, tar, bx, screenOne, screenTwo, ctr, screen = 3,
+var obs, tar, bx, screenOne, screenTwo, ctr, screen = 1,
     deadNum = 0;;
 
 window.addEventListener("load", function() {
@@ -93,16 +94,24 @@ function reset(status) {
     var s = status || "";
     if (s == 'win') {
         //赢
+        ctr = '';
+        bx = new box(game);
+        tar = new target(game);
         alert("win!");
         deadNum = 0;
         document.querySelector('p').innerHTML = '<span>LEVEL:<span>1</span>/50</span><span>DEATHS:<span>' + deadNum + '</span></span>';
-        bx = new box(game);
-        tar = new target(game);
+
     } else {
         //输掉
         deadNum += 1;
+        ctr = '';
         document.querySelector('p').innerHTML = '<span>LEVEL:<span>1</span>/50</span><span>DEATHS:<span>' + deadNum + '</span></span>';
         bx = new box(game);
+        tar.coins = [
+            coin.construct(COINS.coin1),
+            coin.construct(COINS.coin2),
+            coin.construct(COINS.coin3),
+        ];
     }
 }
 
@@ -235,6 +244,7 @@ function coin(name, x, y, radius, scale, color, border) {
 }
 
 function redbox(name, x, y, width, speed, color, border) {
+    var self = this;
     this.name = name,
         this.x = x,
         this.y = y,
@@ -263,22 +273,43 @@ function redbox(name, x, y, width, speed, color, border) {
                     break;
 
             };
-         
+
+            function speedBack() {
+                switch (self.ctr) {
+                    case 'left':
+                        self.x += speed;
+                        break;
+                    case 'up':
+                        self.y += speed;
+                        break;
+                    case 'right':
+                        self.x -= speed;
+                        break;
+                    case 'down':
+                        self.y -= speed;
+                        break;
+
+                };
+            }
             var gameCenterWall = SCREENS.screen3.gameCenterWall;
             var greenland = SCREENS.screen3.greenland;
             if (this.x < greenland.left_r) {
-                if (this.x > greenland.left_l && this.y > greenland.top && this.y < greenland.bottom) {
-
-                    ctx.fillRect(this.x, this.y, this.width, this.width);
-                    ctx.fillStyle = this.color;
-                    ctx.fillRect(this.x + 2, this.y + 2, this.width - 4, this.width - 4);
-                    return;
+                if (this.x < greenland.left_l || this.y < greenland.top || this.y > greenland.bottom) {
+                    speedBack()
+                }
+            } else if (this.x >= greenland.left_r && this.x <= greenland.right_l) {
+                if (this.y > gameCenterWall.bottom - this.width || this.y < gameCenterWall.top) {
+                    speedBack()
+                }
+            } else if (this.x > greenland.right_l - this.width) {
+                if (this.x > greenland.right_r || this.y < greenland.top || this.y > greenland.bottom) {
+                    speedBack()
                 }
             }
 
-            // ctx.fillRect(this.x, this.y, this.width, this.width);
-            // ctx.fillStyle = this.color;
-            // ctx.fillRect(this.x + 2, this.y + 2, this.width - 4, this.width - 4);
+            ctx.fillRect(this.x, this.y, this.width, this.width);
+            ctx.fillStyle = this.color;
+            ctx.fillRect(this.x + 2, this.y + 2, this.width - 4, this.width - 4);
         },
         this.fail = function() {
             //判断失败
@@ -318,9 +349,12 @@ function redbox(name, x, y, width, speed, color, border) {
             }
         },
         this.win = function() {
-            var o = tar.coins;
-            if (o.length == 0) {
-                alert("You Made It!");
+            var o = tar.coins,
+                greenland = SCREENS.screen3.greenland;
+
+            if (o.length == 0 && this.x > greenland.win) {
+                reset('win');
+                // alert("You Made It!");
                 return;
             }
         }
@@ -498,7 +532,7 @@ function SCREENTWO(game) {
 
 document.onkeydown = function(e) {
     if (screen == 3) {
-        console.log(bx.redbox.x, bx.redbox.y)
+        // console.log(bx.redbox.x, bx.redbox.y)
         var code = e.keyCode;
         switch (code) {
             case 37:
