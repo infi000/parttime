@@ -21,7 +21,7 @@ p{
     justify-content:space-between;
 }
 main {
-    height:1000px;
+    /*height:1000px;*/
     display:flex;
     justify-content:center;
     align-items:center;

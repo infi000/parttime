@@ -77,25 +77,26 @@ const COINS = {
 };
 const REDBOX = ['redbox', 300, 200, 20, 8, 'red', BLACK];
 var obs,
-    tar,
-    bx,
+    goal,
+    box,
     screenOne,
     screenTwo,
     ctr,
     screen = 3,
     deadNum = 0,
-    html_p = function() { return '<span>LEVEL:<span>1</span>/50</span><span style="text-decoration: underline;cursor: pointer;" id="pause">PAUSE</span><span style="text-decoration: underline;cursor: pointer;" id="mute">MUTE</span><span>DEATHS:<span>' + deadNum + '</span></span>' };
+    html_p = function() { return '<span>LEVEL:<span>1</span>/50</span><span style="text-decoration: underline;cursor: pointer;" datatype="pause">PAUSE</span><span style="text-decoration: underline;cursor: pointer;" datatype="mute">MUTE</span><span>DEATHS:<span>' + deadNum + '</span></span>' };
 
 window.addEventListener("load", function() {
     //DOM Loaded
-    startGame();
     document.querySelector('p').style.display = 'none';
-    // screen_1();
+    startGame();
+
 });
+
 document.querySelector('p').addEventListener("click", function(e) {
     var ele = e.target,
-        id = ele.id || "";
-    switch (id) {
+        type = ele.getAttribute('datatype') || "";
+    switch (type) {
         case "pause":
 
             if (ele.innerHTML == "PAUSE") {
@@ -123,9 +124,8 @@ function startGame() {
     screenOne = new SCREENONE(game);
     screenTwo = new SCREENTWO(game);
     obs = new obstacles(game);
-    tar = new target(game);
-    bx = new box(game);
-    // screenTwo=new screen_2(game;)
+    goal = new GOAL(game);
+    box = new BOX(game);
 }
 
 function update() {
@@ -142,33 +142,33 @@ function update() {
                 document.querySelector('p').style.display = 'flex';
                 document.querySelector('p').innerHTML = html_p();
             }
-
             obs.animate();
-            tar.animate();
-            bx.animate();
+            goal.animate();
+            box.animate();
             break;
     }
 }
 
 function reset(status) {
-    var s = status || "", ctr = '';
+    var s = status || "",
+        ctr = '';
     if (s == 'win') {
-        bx = new box(game);
-        tar = new target(game);
+        box = new BOX(game);
+        goal = new GOAL(game);
         deadNum = 0;
         alert("You Made It!");
-       
+
 
     } else {
-        deadNum += 1;      
+        deadNum += 1;
         game.stop();
         setTimeout(function() {
-            bx = new box(game);
-            tar = new target(game);
+            box = new BOX(game);
+            goal = new GOAL(game);
             game.init();
         }, 700);
     }
- document.querySelector('p').innerHTML = html_p();
+    document.querySelector('p').innerHTML = html_p();
 }
 
 //Engine
@@ -219,7 +219,7 @@ function obstacles(game) {
     };
 };
 
-function target(game) {
+function GOAL(game) {
     this.game = game;
     this.coins = [
         coin.construct(COINS.coin1),
@@ -233,7 +233,7 @@ function target(game) {
     };
 }
 
-function box(game) {
+function BOX(game) {
     this.game = game;
     this.redbox = redbox.construct(REDBOX);
     this.animate = function() {
@@ -309,16 +309,16 @@ function redbox(name, x, y, width, speed, color, border) {
         this.border = border,
         this.animate = function(ctx) {
             var gameCenterWall = SCREENS.screen3.gameCenterWall,
-             greenland = SCREENS.screen3.greenland,
-            collisionBalls=this.collision(obs.balls),
-            collisionCoins=this.collision(tar.coins);
-            if (collisionBalls!==false) {
+                greenland = SCREENS.screen3.greenland,
+                collisionBalls = this.collision(obs.balls),
+                collisionCoins = this.collision(goal.coins);
+            if (collisionBalls !== false) {
                 //和篮球解除，失败
                 reset();
             };
-            if (collisionCoins!==false) {
+            if (collisionCoins !== false) {
                 //吃金币，得分
-                tar.coins.splice(collisionCoins, 1);
+                goal.coins.splice(collisionCoins, 1);
             };
             this.win();
             this.ctr = ctr || "";
@@ -395,7 +395,7 @@ function redbox(name, x, y, width, speed, color, border) {
             return false;
         },
         this.win = function() {
-            var o = tar.coins,
+            var o = goal.coins,
                 greenland = SCREENS.screen3.greenland;
             if (o.length == 0 && this.x > greenland.win) {
                 reset('win');
