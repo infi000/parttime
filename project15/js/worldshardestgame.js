@@ -15,6 +15,9 @@ const BLACK = 'rgb(0,0,0)';
 const WHITE = '#fff';
 const LBLUE = '#5d90dd';
 const BACKGROUND_IMAGE = "images/world-hardest-game-2-bg-level-1.png";
+const BG_VOICE = "soundeffects/World'sHardestGame2ThemeSong.mp3";
+const BALL_VOICE = "soundeffects/RealisticPunch.mp3";
+const COIN_VOICE = "soundeffects/CoinCollect.wav";
 const SCREENS = {
     screen1: {
         bg: {
@@ -84,7 +87,27 @@ var obs,
     ctr,
     screen = 3,
     deadNum = 0,
-    html_p = function() { return '<span>LEVEL:<span>1</span>/50</span><span style="text-decoration: underline;cursor: pointer;" id="pause">PAUSE</span><span style="text-decoration: underline;cursor: pointer;" id="mute">MUTE</span><span>DEATHS:<span>' + deadNum + '</span></span>' };
+    html_p = function() {
+        return '<span>LEVEL:<span>1</span>/50</span><span style="text-decoration: underline;cursor: pointer;" id="pause">PAUSE</span><span style="text-decoration: underline;cursor: pointer;" id="mute">MUTE</span><span>DEATHS:<span>' + deadNum + '</span></span>'
+    },
+    ele_bg_audio = (function() {
+        var e = document.createElement('audio');
+        e.src = BG_VOICE;
+        document.body.appendChild(e);
+        return e;
+    })(),
+    ele_ball_audio = (function() {
+        var e = document.createElement('audio');
+        e.src = BALL_VOICE;
+        document.body.appendChild(e);
+        return e;
+    })(),
+    ele_coin_audio = (function() {
+        var e = document.createElement('audio');
+        e.src = COIN_VOICE;
+        document.body.appendChild(e);
+        return e;
+    })();
 
 window.addEventListener("load", function() {
     //DOM Loaded
@@ -151,16 +174,17 @@ function update() {
 }
 
 function reset(status) {
-    var s = status || "", ctr = '';
+    var s = status || "";
+    ctr = '';
     if (s == 'win') {
         bx = new box(game);
         tar = new target(game);
         deadNum = 0;
         alert("You Made It!");
-       
+
 
     } else {
-        deadNum += 1;      
+        deadNum += 1;
         game.stop();
         setTimeout(function() {
             bx = new box(game);
@@ -168,7 +192,7 @@ function reset(status) {
             game.init();
         }, 700);
     }
- document.querySelector('p').innerHTML = html_p();
+    document.querySelector('p').innerHTML = html_p();
 }
 
 //Engine
@@ -309,14 +333,14 @@ function redbox(name, x, y, width, speed, color, border) {
         this.border = border,
         this.animate = function(ctx) {
             var gameCenterWall = SCREENS.screen3.gameCenterWall,
-             greenland = SCREENS.screen3.greenland,
-            collisionBalls=this.collision(obs.balls),
-            collisionCoins=this.collision(tar.coins);
-            if (collisionBalls!==false) {
+                greenland = SCREENS.screen3.greenland,
+                collisionBalls = this.collision(obs.balls),
+                collisionCoins = this.collision(tar.coins);
+            if (collisionBalls !== false) {
                 //和篮球解除，失败
                 reset();
             };
-            if (collisionCoins!==false) {
+            if (collisionCoins !== false) {
                 //吃金币，得分
                 tar.coins.splice(collisionCoins, 1);
             };
