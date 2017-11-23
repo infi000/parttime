@@ -10,22 +10,17 @@
 */
 
 const DARKBLUE = 'rgb(0,0,139)';
-const YELLOW = 'rgb(255, 193, 7)';
+const YELLOW = 'rgb(255, 215, 0)';
 const BLACK = 'rgb(0,0,0)';
-const WHITE = '#fff';
+const WHITE = 'rgb(255,255,255)';
 const LBLUE = '#5d90dd';
 const BACKGROUND_IMAGE = "images/world-hardest-game-2-bg-level-1.png";
 const SCREENS = {
     screen1: {
-        bg: {
-            color1: '#090909',
-            color2: "#4d4d4d",
-            x1: 0,
-            x2: 1000,
-            y1: 0,
-            y2: 490,
-        }
-
+        color1: '#090909',
+        color2: "#4d4d4d",
+        w: 1000,
+        b: 490
     },
     screen2: {
         bg: {
@@ -71,9 +66,9 @@ const BALLS = {
 
 };
 const COINS = {
-    coin1: ["coin1", 420, 268, 8, 0.2, YELLOW, BLACK],
-    coin2: ["coin2", 503, 185, 8, 0.2, YELLOW, BLACK],
-    coin3: ["coin3", 589, 268, 8, 0.2, YELLOW, BLACK],
+    coin1: ["coin1", 420, 268, 10, 0.3, YELLOW, BLACK],
+    coin2: ["coin2", 506, 185, 10, 0.3, YELLOW, BLACK],
+    coin3: ["coin3", 592, 268, 10, 0.3, YELLOW, BLACK],
 };
 const REDBOX = ['redbox', 300, 200, 20, 8, 'red', BLACK];
 var obs,
@@ -82,7 +77,7 @@ var obs,
     screenOne,
     screenTwo,
     ctr,
-    screen = 3,
+    screen = 1,
     deadNum = 0,
     html_p = function() { return '<span>LEVEL:<span>1</span>/50</span><span style="text-decoration: underline;cursor: pointer;" datatype="pause">PAUSE</span><span style="text-decoration: underline;cursor: pointer;" datatype="mute">MUTE</span><span>DEATHS:<span>' + deadNum + '</span></span>' };
 
@@ -198,6 +193,128 @@ var game = {
     }
 };
 
+function SCREENONE(game) {
+    var can = game,
+        ctx = can.getContext(),
+        that = this;
+    this.animateWidth = 0;
+    this.hover = false;
+    this.init = function() {
+        var s1 = SCREENS.screen1,
+            c1 = s1.color1,
+            c2 = s1.color2,
+            color1 = '#6292e1',
+            color2 = '#165398',
+            w = s1.w,
+            b = s1.b,
+            lg;
+        //绘制文字背景
+        lg = ctx.createLinearGradient(0, b, w, 0);
+        lg.addColorStop(0, c1);
+        lg.addColorStop(0.5, c2);
+        lg.addColorStop(1, c1);
+        ctx.fillStyle = lg;
+        ctx.fillRect(0, 0, w, b);
+
+        //白色描边
+        ctx.font = " bold 100px  mono45-headline";
+        ctx.textAlign = 'center';
+        ctx.lineWidth = 8;
+        ctx.strokeStyle = WHITE;
+        w = ctx.measureText('HARDEST GAME').width / 2;
+        ctx.strokeText('HARDEST GAME', 500, 160);
+        //黑色描边
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = BLACK;
+        ctx.strokeText('HARDEST GAME', 500, 160);
+        //蓝色填充
+        lg = ctx.createLinearGradient(0, 0, 0, 160);
+        lg.addColorStop(0, color2);
+        lg.addColorStop(0.5, color1);
+        lg.addColorStop(1, color2);
+        ctx.fillStyle = lg;
+        ctx.fillText('HARDEST GAME', 500, 160);
+
+        //THE WORLD’S
+        ctx.font = '22px Arial';
+        ctx.fillStyle = WHITE;
+        ctx.textAlign = 'left';
+        ctx.fillText('THE WORLD’S', 500 - w, 60);
+        ctx.textAlign = 'right';
+        ctx.fillText('VERSION 2.0', 500 + w, 200);
+        //加载动画;
+        that.animate();
+    };
+    //进度条 动画
+    this.animate = function() {
+        var b = 420,
+            txt = "This is the world's hardest game. It is harder than any game you have ever played, or ever will play.",
+            w,
+            speed;
+        ctx.font = '16px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = WHITE;
+        ctx.strokeStyle = WHITE;
+        ctx.lineWidth = 2;
+        //计算进度条宽度和速度
+        w = ctx.measureText(txt).width;
+        speed = w / (2000 / 20);
+        this.animateWidth += speed;
+        if (this.animateWidth < w) {
+            ctx.fillText(txt, 500, b);
+            ctx.strokeRect((1000 - w) / 2, b - 50, w, 10);
+            ctx.fillRect((1000 - w) / 2, b - 50, that.animateWidth, 10);
+        } else {
+            //进度条加载完成后显示.begin
+            this.begin();
+            if (this.event) {
+                this.event();
+            }
+        }
+    };
+    //begin
+    this.begin = function() {
+        ctx.font = '48px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = WHITE;
+        if (this.hover) {
+            ctx.fillStyle = '#919191';
+        }
+        ctx.fillText('BEGIN', 500, 380);
+    };
+    //event
+    this.event = function() {
+        can.canvas.onmousemove = mousemove;
+        can.canvas.onclick = click;
+        this.event = null;
+    };
+
+    function mousemove(e) {
+        var ex = e.offsetX,
+            ey = e.offsetY;
+        if (ex >= 400 && ex <= 600 && ey >= 340 && ey <= 380) {
+            that.hover = true;
+            e.target.style.cursor = 'pointer';
+        } else {
+            that.hover = false;
+            e.target.style.cursor = 'default';
+        }
+    };
+
+    function click(e) {
+        var ex = e.offsetX,
+            ey = e.offsetY;
+        if (ex >= 400 && ex <= 600 && ey >= 340 && ey <= 380) {
+            screen = 2;
+            e.target.style.cursor = 'default';
+            can.canvas.onmousemove = null;
+            can.canvas.onclick = null;
+        }
+    };
+
+
+}
+
 function obstacles(game) {
     //create the array of balls that will be animated
     this.game = game;
@@ -299,7 +416,7 @@ function coin(name, x, y, radius, scale, color, border) {
 }
 
 function redbox(name, x, y, width, speed, color, border) {
-    var self = this;
+    var that = this;
     this.name = name,
         this.x = x,
         this.y = y,
@@ -340,18 +457,18 @@ function redbox(name, x, y, width, speed, color, border) {
             };
 
             function speedBack() {
-                switch (self.ctr) {
+                switch (that.ctr) {
                     case 'left':
-                        self.x += speed;
+                        that.x += speed;
                         break;
                     case 'up':
-                        self.y += speed;
+                        that.y += speed;
                         break;
                     case 'right':
-                        self.x -= speed;
+                        that.x -= speed;
                         break;
                     case 'down':
-                        self.y -= speed;
+                        that.y -= speed;
                         break;
 
                 };
@@ -405,139 +522,12 @@ function redbox(name, x, y, width, speed, color, border) {
 }
 
 
-function SCREENONE(game) {
-    var can = game,
-        ctx = can.getContext(),
-        self = this;
-    this.progress = 0;
-    this.hover = false;
-    this.init = function() {
-        self.bg();
-        self.words();
-        self.animate();
-    };
-    // 背景颜色
-    this.bg = function() {
-        var screen1_bg = SCREENS.screen1.bg,
-            color1 = screen1_bg.color1,
-            color2 = screen1_bg.color2,
-            x1 = screen1_bg.x1,
-            x2 = screen1_bg.x2,
-            y1 = screen1_bg.y1,
-            y2 = screen1_bg.y2,
-            lg = ctx.createLinearGradient(x1, y1, x2, y2);
-        lg.addColorStop(0, color1);
-        lg.addColorStop(0.5, color2);
-        lg.addColorStop(1, color1);
-        ctx.fillStyle = lg;
-        ctx.fillRect(x1, y1, x2, y2);
-    };
-
-    //文字
-    this.words = function() {
-        //THE WORLD’S
-        ctx.font = '28px Arial';
-        ctx.fillStyle = WHITE;
-        ctx.textAlign = 'left';
-        ctx.fillText('THE WORLD’S', 50, 60);
-        //白色描边
-        ctx.font = " bold 110px  mono45-headline";
-        ctx.fontWeight = 'bold';
-        ctx.lineWidth = 10;
-        ctx.strokeStyle = WHITE;
-        ctx.strokeText('HARDEST GAME', 50, 160);
-        //黑色描边
-        ctx.lineWidth = 6;
-        ctx.strokeStyle = BLACK;
-        ctx.strokeText('HARDEST GAME', 50, 160);
-        //蓝色填充
-        var color1 = '#8aa0c0',
-
-            color2 = LBLUE,
-
-            x1 = 0,
-            x2 = 0,
-            y1 = 0,
-            y2 = 160,
-            lg = ctx.createLinearGradient(x1, y1, x2, y2);
-        lg.addColorStop(0, color2);
-        lg.addColorStop(0.5, color1);
-        lg.addColorStop(1, color2);
-        ctx.fillStyle = lg;
-        ctx.fillText('HARDEST GAME', 50, 160);
-        // VERSION 2.0
-        ctx.font = '28px Arial';
-        ctx.fillStyle = WHITE;
-        ctx.textAlign = 'right';
-        ctx.fillText('VERSION 2.0', 960, 200);
-
-    };
-    //进度条 动画
-    this.animate = function() {
-        var progress = this.progress;
-        if (progress < 800) {
-            // This is the world's hardest game. It is harder than any game you have ever played, or ever will play.
-            ctx.font = '18px Arial';
-            ctx.fillStyle = WHITE;
-            ctx.textAlign = 'center';
-            ctx.fillText("This is the world's hardest game. It is harder than any game you have ever played, or ever will play.", 500, 420);
-            ctx.strokeStyle = WHITE;
-            ctx.lineWidth = 2;
-            ctx.strokeRect(100, 380, 800, 10);
-            this.progress += 8;
-            ctx.fillRect(100, 380, self.progress, 10);
-        } else {
-            this.begin();
-            if (this.event) {
-                this.event();
-            }
-        }
-    };
-    //begin
-    this.begin = function() {
-        ctx.font = '48px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillStyle = WHITE;
-        if (this.hover) {
-            ctx.fillStyle = '#919191';
-        }
-        ctx.fillText('BEGIN', 500, 380);
-    };
-    //event
-    this.mousemove = function(e) {
-        var ex = e.offsetX,
-            ey = e.offsetY;
-        if (ex >= 400 && ex <= 600 && ey >= 340 && ey <= 380) {
-            self.hover = true;
-            e.target.style['cursor'] = 'pointer';
-        } else {
-            self.hover = false;
-            e.target.style['cursor'] = 'default';
-        }
-    };
-    this.click = function(e) {
-        var ex = e.offsetX,
-            ey = e.offsetY;
-        if (ex >= 400 && ex <= 600 && ey >= 340 && ey <= 380) {
-            screen = 2;
-            e.target.style['cursor'] = 'default';
-            can.canvas.onmousemove = null;
-            can.canvas.onclick = null;
-        }
-    };
-    this.event = function() {
-        can.canvas.onmousemove = this.mousemove;
-        can.canvas.onclick = this.click;
-        this.event = null;
-    };
-
-}
 
 
 function SCREENTWO(game) {
     var can = game,
         ctx = can.getContext(),
-        self = this;
+        that = this;
     this.time = 0;
     this.init = function() {
         if (this.time >= 2000) {
