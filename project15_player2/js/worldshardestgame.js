@@ -15,41 +15,9 @@ const BLACK = 'rgb(0,0,0)';
 const WHITE = 'rgb(255,255,255)';
 const LBLUE = '#5d90dd';
 const BACKGROUND_IMAGE = "images/world-hardest-game-2-bg-level-1.png";
-const SCREENS = {
-    screen1: {
-        color1: '#090909',
-        color2: "#4d4d4d",
-        w: 1000,
-        b: 490
-    },
-    screen2: {
-        bg: {
-            color1: WHITE,
-            color2: LBLUE,
-            x1: 0,
-            x2: 1000,
-            lx2: 0,
-            y1: 0,
-            y2: 490,
-        }
-
-    },
-    screen3: {
-        gameCenterWall: {
-            top: 100,
-            bottom: 355,
-        },
-        greenland: {
-            left_l: 210,
-            left_r: 382,
-            top: 140,
-            bottom: 288,
-            right_l: 613,
-            right_r: 788,
-            win: 700
-        }
-    }
-};
+const BG_VOICE = "soundeffects/World'sHardestGame2ThemeSong.mp3";
+const BALL_VOICE = "soundeffects/RealisticPunch.mp3";
+const COIN_VOICE = "soundeffects/CoinCollect.wav";
 const BALLS = {
     pair1: {
         ball1: ["p1b1", 400, 150, 11, 5, DARKBLUE],
@@ -66,20 +34,48 @@ const BALLS = {
 
 };
 const COINS = {
-    coin1: ["coin1", 420, 268, 10, 0.3, YELLOW, BLACK],
-    coin2: ["coin2", 506, 185, 10, 0.3, YELLOW, BLACK],
-    coin3: ["coin3", 592, 268, 10, 0.3, YELLOW, BLACK],
+    coin1: ["coin1", 420, 268, 10, 0.4, YELLOW, BLACK],
+    coin2: ["coin2", 506, 185, 10, 0.4, YELLOW, BLACK],
+    coin3: ["coin3", 592, 268, 10, 0.4, YELLOW, BLACK],
 };
-const REDBOX = ['redbox', 300, 200, 20, 8, 'red', BLACK];
-var obs,
-    goal,
-    box,
-    screenOne,
+const BOX = ['box', 300, 200, 20, 8, 'red', BLACK];
+const SCREENS = {
+    screen1: {
+        color1: '#090909',
+        color2: "#4d4d4d",
+        w: 1000,
+        b: 490,
+    },
+    screen2: {
+
+        color1: WHITE,
+        color2: LBLUE,
+        w: 1000,
+        b: 490,
+
+
+    },
+    screen3: {
+        gameCenterWall: {
+            top: 100,
+            bottom: 355,
+        },
+        safezoom: {
+            l_l: 210,
+            l_r: 382,
+            top: 140,
+            bottom: 288,
+            r_l: 613,
+            r_r: 788,
+            win: 700
+        }
+    }
+};
+
+var screenOne,
     screenTwo,
-    ctr,
-    screen = 1,
-    deadNum = 0,
-    html_p = function() { return '<span>LEVEL:<span>1</span>/50</span><span style="text-decoration: underline;cursor: pointer;" datatype="pause">PAUSE</span><span style="text-decoration: underline;cursor: pointer;" datatype="mute">MUTE</span><span>DEATHS:<span>' + deadNum + '</span></span>' };
+    screenThree,
+    screen = 1;
 
 window.addEventListener("load", function() {
     //DOM Loaded
@@ -88,39 +84,43 @@ window.addEventListener("load", function() {
 
 });
 
-document.querySelector('p').addEventListener("click", function(e) {
-    var ele = e.target,
-        type = ele.getAttribute('datatype') || "";
-    switch (type) {
-        case "pause":
 
-            if (ele.innerHTML == "PAUSE") {
-                ele.innerHTML = "PLAY";
-                game.stop();
-            } else {
-                ele.innerHTML = "PAUSE";
-                game.init();
-            }
-            break;
-        case "mute":
-            if (ele.innerHTML == "MUTE") {
-                ele.innerHTML = "SOUND";
-            } else {
-                ele.innerHTML = "MUTE";
-            }
-            break;
+document.onkeyup = function(e) {
+    if (screen == 3) {
+        var s = screenThree || {};
+        s.arrow = null;
     }
+};
+document.onkeydown = function(e) {
+    if (screen == 3) {
+        var s = screenThree || {};
+        var code = e.keyCode;
+        switch (code) {
+            case 37:
+                s.arrow = 'arrow_left';
+                break;
+            case 38:
+                s.arrow = 'arrow_up';
+                break;
+            case 39:
+                s.arrow = "arrow_right";
+                break;
+            case 40:
+                s.arrow = "arrow_down";
+                break;
+        }
+    }
+};
 
-});
+
 
 function startGame() {
     //Begin
     game.init();
-    screenOne = new SCREENONE(game);
-    screenTwo = new SCREENTWO(game);
-    obs = new obstacles(game);
-    goal = new GOAL(game);
-    box = new BOX(game);
+    screenOne = new SCREENONE({ can: game, animateWidth: 0, hover: false });
+    screenTwo = new SCREENTWO({ can: game, time: 2000, speed: 20 });
+    screenThree = new SCREENTHREE({ can: game, arrow: "" });
+
 }
 
 function update() {
@@ -133,37 +133,58 @@ function update() {
             screenTwo.init();
             break;
         case 3:
+            screenThree.init();
             if (document.querySelector('p').style.display == 'none') {
                 document.querySelector('p').style.display = 'flex';
-                document.querySelector('p').innerHTML = html_p();
+                document.querySelector('p').innerHTML = screenThree.dom_p();
+                screenThree.dom_audio();
+                screenThree.audio_bg.play();
+                document.querySelector('body p').addEventListener("click", function(e) {
+                    var ele = e.target,
+                        type = ele.getAttribute('datatype') || "";
+                    switch (type) {
+                        case "pause":
+                            screenThree.pause = !screenThree.pause;
+                            if (screenThree.pause) {
+                                game.stop();
+                            } else {
+                                game.init();
+                            }
+                            break;
+                        case "mute":
+                            screenThree.mute = !screenThree.mute;
+                            if (screenThree.mute) {
+                                screenThree.audio_bg.pause();
+                            } else {
+                                screenThree.audio_bg.play();
+                            }
+                            break;
+                    }
+                    document.querySelector('p').innerHTML = screenThree.dom_p();
+                });
             }
-            obs.animate();
-            goal.animate();
-            box.animate();
+
             break;
     }
 }
 
 function reset(status) {
-    var s = status || "",
-        ctr = '';
+    var s = status || "";
     if (s == 'win') {
-        box = new BOX(game);
-        goal = new GOAL(game);
-        deadNum = 0;
+        screenThree = new SCREENTHREE({ can: game });
         alert("You Made It!");
 
-
     } else {
-        deadNum += 1;
+        screenThree.deadNum += 1;
         game.stop();
         setTimeout(function() {
-            box = new BOX(game);
-            goal = new GOAL(game);
+            screenThree.obs = new obstacles(game);
+            screenThree.tar = new TARGET(game);
+            screenThree.box = new OBJECT(game);
             game.init();
-        }, 700);
+        }, 400);
     }
-    document.querySelector('p').innerHTML = html_p();
+    document.querySelector('p').innerHTML = screenThree.dom_p();
 }
 
 //Engine
@@ -193,127 +214,192 @@ var game = {
     }
 };
 
-function SCREENONE(game) {
-    var can = game,
-        ctx = can.getContext(),
-        that = this;
-    this.animateWidth = 0;
-    this.hover = false;
-    this.init = function() {
-        var s1 = SCREENS.screen1,
-            c1 = s1.color1,
-            c2 = s1.color2,
-            color1 = '#6292e1',
-            color2 = '#165398',
-            w = s1.w,
-            b = s1.b,
-            lg;
-        //绘制文字背景
-        lg = ctx.createLinearGradient(0, b, w, 0);
-        lg.addColorStop(0, c1);
-        lg.addColorStop(0.5, c2);
-        lg.addColorStop(1, c1);
-        ctx.fillStyle = lg;
-        ctx.fillRect(0, 0, w, b);
+function SCREENONE(opt) {
+    this.can = opt.can;
+    this.ctx = opt.can.getContext();
+    this.animateWidth = opt.animateWidth;
+    this.ishover = opt.hover;
+}
+SCREENONE.prototype.init = function() {
+    var ctx = this.ctx,
+        s1 = SCREENS.screen1,
+        c1 = s1.color1,
+        c2 = s1.color2,
+        color1 = '#6292e1',
+        color2 = '#165398',
+        w = s1.w,
+        b = s1.b,
+        lg;
+    //绘制文字背景
+    lg = ctx.createLinearGradient(0, b, w, 0);
+    lg.addColorStop(0, c1);
+    lg.addColorStop(0.5, c2);
+    lg.addColorStop(1, c1);
+    ctx.fillStyle = lg;
+    ctx.fillRect(0, 0, w, b);
 
-        //白色描边
-        ctx.font = " bold 100px  mono45-headline";
-        ctx.textAlign = 'center';
-        ctx.lineWidth = 8;
-        ctx.strokeStyle = WHITE;
-        w = ctx.measureText('HARDEST GAME').width / 2;
-        ctx.strokeText('HARDEST GAME', 500, 160);
-        //黑色描边
-        ctx.lineWidth = 6;
-        ctx.strokeStyle = BLACK;
-        ctx.strokeText('HARDEST GAME', 500, 160);
-        //蓝色填充
-        lg = ctx.createLinearGradient(0, 0, 0, 160);
-        lg.addColorStop(0, color2);
-        lg.addColorStop(0.5, color1);
-        lg.addColorStop(1, color2);
-        ctx.fillStyle = lg;
-        ctx.fillText('HARDEST GAME', 500, 160);
+    //白色描边
+    ctx.font = " bold 100px  mono45-headline";
+    ctx.textAlign = 'center';
+    ctx.lineWidth = 8;
+    ctx.strokeStyle = WHITE;
+    w = ctx.measureText('HARDEST GAME').width / 2;
+    ctx.strokeText('HARDEST GAME', 500, 160);
+    //黑色描边
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = BLACK;
+    ctx.strokeText('HARDEST GAME', 500, 160);
+    //蓝色填充
+    lg = ctx.createLinearGradient(0, 0, 0, 160);
+    lg.addColorStop(0, color2);
+    lg.addColorStop(0.5, color1);
+    lg.addColorStop(1, color2);
+    ctx.fillStyle = lg;
+    ctx.fillText('HARDEST GAME', 500, 160);
 
-        //THE WORLD’S
-        ctx.font = '22px Arial';
-        ctx.fillStyle = WHITE;
-        ctx.textAlign = 'left';
-        ctx.fillText('THE WORLD’S', 500 - w, 60);
-        ctx.textAlign = 'right';
-        ctx.fillText('VERSION 2.0', 500 + w, 200);
-        //加载动画;
-        that.animate();
-    };
-    //进度条 动画
-    this.animate = function() {
-        var b = 420,
-            txt = "This is the world's hardest game. It is harder than any game you have ever played, or ever will play.",
-            w,
-            speed;
-        ctx.font = '16px Arial';
+    //THE WORLD’S
+    ctx.font = '22px Arial';
+    ctx.fillStyle = WHITE;
+    ctx.textAlign = 'left';
+    ctx.fillText('THE WORLD’S', 500 - w, 60);
+    ctx.textAlign = 'right';
+    ctx.fillText('VERSION 2.0', 500 + w, 200);
+    //加载动画;
+    this.animate();
+};
+SCREENONE.prototype.animate = function() {
+    var ctx = this.ctx,
+        can = this.can,
+        that = this,
+        b = 420,
+        txt = "This is the world's hardest game. It is harder than any game you have ever played, or ever will play.",
+        w,
+        speed;
+    ctx.font = '16px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = WHITE;
+    ctx.strokeStyle = WHITE;
+    ctx.lineWidth = 2;
+    //计算进度条宽度和速度
+    w = ctx.measureText(txt).width;
+    speed = w / (2000 / 20);
+    this.animateWidth += speed;
+    if (this.animateWidth < w) {
+        ctx.fillText(txt, 500, b);
+        ctx.strokeRect((1000 - w) / 2, b - 50, w, 10);
+        ctx.fillRect((1000 - w) / 2, b - 50, this.animateWidth, 10);
+    } else {
+        //进度条加载完成后显示.begin
+        ctx.font = '46px Arial';
         ctx.textAlign = 'center';
         ctx.fillStyle = WHITE;
-        ctx.strokeStyle = WHITE;
-        ctx.lineWidth = 2;
-        //计算进度条宽度和速度
-        w = ctx.measureText(txt).width;
-        speed = w / (2000 / 20);
-        this.animateWidth += speed;
-        if (this.animateWidth < w) {
-            ctx.fillText(txt, 500, b);
-            ctx.strokeRect((1000 - w) / 2, b - 50, w, 10);
-            ctx.fillRect((1000 - w) / 2, b - 50, that.animateWidth, 10);
-        } else {
-            //进度条加载完成后显示.begin
-            this.begin();
-            if (this.event) {
-                this.event();
-            }
-        }
-    };
-    //begin
-    this.begin = function() {
-        ctx.font = '48px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillStyle = WHITE;
-        if (this.hover) {
+        if (this.ishover) {
             ctx.fillStyle = '#919191';
         }
         ctx.fillText('BEGIN', 500, 380);
-    };
-    //event
-    this.event = function() {
-        can.canvas.onmousemove = mousemove;
-        can.canvas.onclick = click;
-        this.event = null;
-    };
-
-    function mousemove(e) {
-        var ex = e.offsetX,
-            ey = e.offsetY;
-        if (ex >= 400 && ex <= 600 && ey >= 340 && ey <= 380) {
-            that.hover = true;
-            e.target.style.cursor = 'pointer';
-        } else {
-            that.hover = false;
-            e.target.style.cursor = 'default';
+        if (!can.canvas.onmousemove) {
+            can.canvas.onmousemove = function(e) {
+                var ex = e.offsetX,
+                    ey = e.offsetY;
+                if (ex >= 400 && ex <= 600 && ey >= 340 && ey <= 380) {
+                    that.ishover = true;
+                    e.target.style.cursor = 'pointer';
+                } else {
+                    that.ishover = false;
+                    e.target.style.cursor = 'default';
+                }
+            };
+            can.canvas.onclick = function(e) {
+                var ex = e.offsetX,
+                    ey = e.offsetY;
+                if (ex >= 400 && ex <= 600 && ey >= 340 && ey <= 380) {
+                    screen = 2;
+                    e.target.style.cursor = 'default';
+                    can.canvas.onmousemove = null;
+                    can.canvas.onclick = null;
+                }
+            };
         }
-    };
 
-    function click(e) {
-        var ex = e.offsetX,
-            ey = e.offsetY;
-        if (ex >= 400 && ex <= 600 && ey >= 340 && ey <= 380) {
-            screen = 2;
-            e.target.style.cursor = 'default';
-            can.canvas.onmousemove = null;
-            can.canvas.onclick = null;
-        }
-    };
+    }
+};
 
+function SCREENTWO(opt) {
+    this.can = opt.can;
+    this.ctx = opt.can.getContext();
+    this.time = opt.time;
+    this.speed = opt.speed;
 
 }
+
+SCREENTWO.prototype.init = function() {
+    if (this.speed >= this.time) {
+        screen = 3;
+        return;
+    }
+    var ctx = this.ctx,
+        screen2_bg = SCREENS.screen2,
+        color1 = screen2_bg.color1,
+        color2 = screen2_bg.color2,
+        x1 = 0,
+        x2 = screen2_bg.w,
+        y1 = 0,
+        y2 = screen2_bg.b,
+        lg = ctx.createLinearGradient(x1, y1, x1, y2);
+    lg.addColorStop(0, color1);
+    lg.addColorStop(1, color2);
+    ctx.fillStyle = lg;
+    ctx.fillRect(x1, y1, x2, y2);
+
+    ctx.font = ' 26px Arial';
+    ctx.fillStyle = BLACK;
+    ctx.textAlign = 'center';
+    ctx.fillText('YOU DONT’T STAND A CHANCE.', 500, 200);
+    this.speed += 20;
+};
+
+
+function SCREENTHREE(opt) {
+    this.can = opt.can;
+    this.ctx = opt.can.getContext();
+    this.obs = new obstacles(opt.can);
+    this.tar = new TARGET(opt.can);
+    this.box = new OBJECT(opt.can);
+    this.arrow = opt.arrow;
+    this.pause = false;
+    this.mute = false;
+    this.deadNum = 0;
+
+};
+SCREENTHREE.prototype.init = function() {
+    this.obs.animate();
+    this.tar.animate();
+    this.box.animate();
+};
+SCREENTHREE.prototype.dom_p = function() {
+    var p = this.pause ? 'PLAY' : 'PAUSE',
+        m = this.mute ? 'AUDIO' : 'MUTE',
+        num = this.deadNum;
+    return '<span>LEVEL:<span>1</span>/50</span><span style="text-decoration: underline;cursor: pointer;" datatype="pause">' + p + '</span><span style="text-decoration: underline;cursor: pointer;" datatype="mute">' + m + '</span><span>DEATHS:<span>' + num + '</span></span>';
+};
+SCREENTHREE.prototype.dom_audio = function(argument) {
+    var e_bg = document.createElement('audio');
+    var e_coin = document.createElement('audio');
+    var e_ball = document.createElement('audio');
+    e_bg.src = BG_VOICE;
+    e_bg.setAttribute('loop', true);
+    e_bg.setAttribute('id', 'audio_bg');
+    e_coin.src = COIN_VOICE;
+    e_coin.setAttribute('id', 'audio_coin');
+    e_ball.src = BALL_VOICE;
+    e_ball.setAttribute('id', 'audio_ball');
+    document.body.appendChild(e_bg);
+    document.body.appendChild(e_ball);
+    document.body.appendChild(e_coin);
+    SCREENTHREE.prototype.audio_coin = e_coin;
+    SCREENTHREE.prototype.audio_bg = e_bg;
+    SCREENTHREE.prototype.audio_ball = e_ball;
+};
 
 function obstacles(game) {
     //create the array of balls that will be animated
@@ -335,29 +421,6 @@ function obstacles(game) {
 
     };
 };
-
-function GOAL(game) {
-    this.game = game;
-    this.coins = [
-        coin.construct(COINS.coin1),
-        coin.construct(COINS.coin2),
-        coin.construct(COINS.coin3),
-    ];
-    this.animate = function() {
-        for (var i = 0; i < this.coins.length; i++) {
-            this.coins[i].animate(this.game.getContext());
-        }
-    };
-}
-
-function BOX(game) {
-    this.game = game;
-    this.redbox = redbox.construct(REDBOX);
-    this.animate = function() {
-        this.redbox.animate(this.game.getContext());
-
-    };
-}
 
 function ball(name, x, y, radius, speed, color) {
     this.name = name,
@@ -383,18 +446,32 @@ function ball(name, x, y, radius, speed, color) {
         };
 }
 
-function coin(name, x, y, radius, scale, color, border) {
+function TARGET(game) {
+    this.game = game;
+    this.coins = [
+        coin.construct(COINS.coin1),
+        coin.construct(COINS.coin2),
+        coin.construct(COINS.coin3),
+    ];
+    this.animate = function() {
+        for (var i = 0; i < this.coins.length; i++) {
+            this.coins[i].animate(this.game.getContext());
+        }
+    };
+}
+
+function coin(name, x, y, radius, width, color, borderColor) {
     this.name = name,
         this.x = x,
         this.y = y,
         this.radius = radius,
         this.radius_x = radius,
-        this.scale = scale,
+        this.width = width,
         this.color = color,
-        this.border = border,
+        this.borderColor = borderColor,
         this.animate = function(ctx) {
             //Draw coin
-            ctx.fillStyle = this.border;
+            ctx.fillStyle = this.borderColor;
             ctx.beginPath();
             ctx.ellipse(this.x, this.y, this.radius_x, this.radius, 0, 0, 2 * Math.PI);
             ctx.fill();
@@ -402,20 +479,26 @@ function coin(name, x, y, radius, scale, color, border) {
             ctx.fillStyle = this.color;
             ctx.ellipse(this.x, this.y, this.radius_x - 2, this.radius - 2, 0, 0, 2 * Math.PI);
             ctx.fill();
-            this.radius_x -= this.scale;
-            if (this.radius_x <= 2) {
-                this.scale = -this.scale;
-                this.radius_x -= this.scale;
+            this.radius_x -= this.width;
+            if (this.radius_x <= 2 || this.radius_x >= this.radius) {
+                this.width = -this.width;
+                this.radius_x -= this.width;
             }
-            if (this.radius_x >= this.radius) {
-                this.scale = -this.scale;
-                this.radius_x -= this.scale;
-            }
-
         };
 }
 
-function redbox(name, x, y, width, speed, color, border) {
+
+
+function OBJECT(game) {
+    this.game = game;
+    this.box = box.construct(BOX);
+    this.animate = function() {
+        this.box.animate(this.game.getContext());
+
+    };
+}
+
+function box(name, x, y, width, speed, color, border) {
     var that = this;
     this.name = name,
         this.x = x,
@@ -426,178 +509,76 @@ function redbox(name, x, y, width, speed, color, border) {
         this.border = border,
         this.animate = function(ctx) {
             var gameCenterWall = SCREENS.screen3.gameCenterWall,
-                greenland = SCREENS.screen3.greenland,
-                collisionBalls = this.collision(obs.balls),
-                collisionCoins = this.collision(goal.coins);
-            if (collisionBalls !== false) {
-                //和篮球解除，失败
+                safezoom = SCREENS.screen3.safezoom,
+                touchBalls = this.touch(screenThree.obs.balls),
+                touchCoins = this.touch(screenThree.tar.coins);
+            if (touchBalls !== false) {
+                if (!screenThree.mute) {
+                    screenThree.audio_ball.play();
+                }
                 reset();
             };
-            if (collisionCoins !== false) {
-                //吃金币，得分
-                goal.coins.splice(collisionCoins, 1);
+            if (touchCoins !== false) {
+                if (!screenThree.mute) {
+                    screenThree.audio_coin.play();
+                }
+                screenThree.tar.coins.splice(touchCoins, 1);
             };
-            this.win();
-            this.ctr = ctr || "";
+            if (screenThree.tar.coins.length == 0 && this.x > safezoom.win) {
+                reset('win');
+                return;
+            }
+            this.arrow = screenThree.arrow || "";
             ctx.fillStyle = this.border;
-            switch (this.ctr) {
-                case 'left':
+            switch (this.arrow) {
+                case 'arrow_left':
                     this.x -= speed;
                     break;
-                case 'up':
+                case 'arrow_up':
                     this.y -= speed;
                     break;
-                case 'right':
+                case 'arrow_right':
                     this.x += speed;
                     break;
-                case 'down':
+                case 'arrow_down':
                     this.y += speed;
                     break;
 
             };
-
-            function speedBack() {
-                switch (that.ctr) {
-                    case 'left':
-                        that.x += speed;
-                        break;
-                    case 'up':
-                        that.y += speed;
-                        break;
-                    case 'right':
-                        that.x -= speed;
-                        break;
-                    case 'down':
-                        that.y -= speed;
-                        break;
-
-                };
-            }
-
-            if (this.x < greenland.left_r) {
-                if (this.x < greenland.left_l || this.y < greenland.top || this.y > greenland.bottom) {
-                    speedBack();
-                }
-            } else if (this.x >= greenland.left_r && this.x <= greenland.right_l) {
-                if (this.y > gameCenterWall.bottom - this.width || this.y < gameCenterWall.top) {
-                    speedBack();
-                }
-            } else if (this.x > greenland.right_l - this.width) {
-                if (this.x > greenland.right_r || this.y < greenland.top || this.y > greenland.bottom) {
-                    speedBack();
-                }
+            if (this.x < safezoom.l_r || this.x > safezoom.r_l) {
+                this.x = this.x > safezoom.l_l ? this.x : safezoom.l_l;
+                this.x = this.x > safezoom.r_r ? safezoom.r_r : this.x;
+                this.y = this.y < safezoom.top ? safezoom.top : this.y;
+                this.y = this.y > safezoom.bottom ? safezoom.bottom : this.y;
+            } else if (this.x >= safezoom.l_r && this.x <= safezoom.r_l) {
+                this.y = this.y < gameCenterWall.top ? gameCenterWall.top : this.y;
+                this.y = this.y > gameCenterWall.bottom - this.width - 4 ? gameCenterWall.bottom - this.width - 4 : this.y;
             }
 
             ctx.fillRect(this.x, this.y, this.width, this.width);
             ctx.fillStyle = this.color;
             ctx.fillRect(this.x + 2, this.y + 2, this.width - 4, this.width - 4);
         },
-        this.collision = function(opt) {
-            var o = opt || [];
-            for (var i = 0; i < o.length; i++) {
-                var o_x = o[i].x,
-                    o_y = o[i].y,
-                    o_w = o[i].radius,
+        this.touch = function(obj) {
+            var $obj = obj || [];
+            for (var i = 0; i < $obj.length; i++) {
+                var $obj_x = $obj[i].x,
+                    $obj_y = $obj[i].y,
+                    $obj_w = $obj[i].radius,
                     b_x = this.x,
                     b_y = this.y,
                     b_w = this.width,
-                    x = o_x - b_x,
-                    y = o_y - b_y,
-                    limit = o_w + b_w;
-                if ((x <= limit && x >= -o_w) && (y <= limit && y >= -o_w)) {
-
+                    x = $obj_x - b_x,
+                    y = $obj_y - b_y,
+                    limit = $obj_w + b_w;
+                if ((x <= limit && x >= -$obj_w) && (y <= limit && y >= -$obj_w)) {
                     return i;
                 }
             }
             return false;
-        },
-        this.win = function() {
-            var o = goal.coins,
-                greenland = SCREENS.screen3.greenland;
-            if (o.length == 0 && this.x > greenland.win) {
-                reset('win');
-                return;
-            }
         };
 }
 
 
 
 
-function SCREENTWO(game) {
-    var can = game,
-        ctx = can.getContext(),
-        that = this;
-    this.time = 0;
-    this.init = function() {
-        if (this.time >= 2000) {
-            screen = 3;
-            return;
-        }
-        this.bg();
-        this.words();
-        this.time += 20;
-
-    };
-    //背景
-    this.bg = function() {
-        var screen2_bg = SCREENS.screen2.bg,
-            color1 = screen2_bg.color1,
-            color2 = screen2_bg.color2,
-            x1 = screen2_bg.x1,
-            x2 = screen2_bg.x2,
-            lx2 = screen2_bg.lx2,
-            y1 = screen2_bg.y1,
-            y2 = screen2_bg.y2,
-            lg = ctx.createLinearGradient(x1, y1, lx2, y2);
-        lg.addColorStop(0, color1);
-        lg.addColorStop(1, color2);
-        ctx.fillStyle = lg;
-        ctx.fillRect(x1, y1, x2, y2);
-    };
-    //文字
-    this.words = function() {
-        ctx.font = '30px Arial';
-        ctx.fillStyle = BLACK;
-        ctx.textAlign = 'center';
-        ctx.fillText('YOU DONT’T STAND A CHANCE.', 500, 200);
-    };
-}
-
-
-document.onkeydown = keyCtr;
-
-document.onkeyup = function(e) {
-    if (screen == 3) {
-        ctr = '';
-    }
-};
-
-function keyCtr(e) {
-    if (screen == 3) {
-        var code = e.keyCode;
-        switch (code) {
-            case 37:
-                //left
-                ctr = 'left';
-                break;
-            case 38:
-                //up
-                ctr = 'up';
-                break;
-            case 39:
-                //right
-                ctr = "right";
-                break;
-            case 40:
-                //down
-                ctr = "down";
-                break;
-        }
-    }
-
-};
-
-function audio() {
-
-};

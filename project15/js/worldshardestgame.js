@@ -85,14 +85,16 @@ var obs,
     screenOne,
     screenTwo,
     ctr,
-    screen = 3,
+    screen = 1,
     deadNum = 0,
+    sound = true,
     html_p = function() {
-        return '<span>LEVEL:<span>1</span>/50</span><span style="text-decoration: underline;cursor: pointer;" id="pause">PAUSE</span><span style="text-decoration: underline;cursor: pointer;" id="mute">MUTE</span><span>DEATHS:<span>' + deadNum + '</span></span>'
+        return '<span>LEVEL:<span>1</span>/50</span><span style="text-decoration: underline;cursor: pointer;" id="pause">PAUSE</span><span style="text-decoration: underline;cursor: pointer;" id="mute">MUTE</span><span>DEATHS:<span id="deadNum">' + deadNum + '</span></span>';
     },
     ele_bg_audio = (function() {
         var e = document.createElement('audio');
         e.src = BG_VOICE;
+        e.setAttribute('loop', true);
         document.body.appendChild(e);
         return e;
     })(),
@@ -132,8 +134,12 @@ document.querySelector('p').addEventListener("click", function(e) {
         case "mute":
             if (ele.innerHTML == "MUTE") {
                 ele.innerHTML = "SOUND";
+                ele_bg_audio.pause();
+                sound = false;
             } else {
                 ele.innerHTML = "MUTE";
+                ele_bg_audio.play();
+                sound = true;
             }
             break;
     }
@@ -148,7 +154,6 @@ function startGame() {
     obs = new obstacles(game);
     tar = new target(game);
     bx = new box(game);
-    // screenTwo=new screen_2(game;)
 }
 
 function update() {
@@ -164,6 +169,7 @@ function update() {
             if (document.querySelector('p').style.display == 'none') {
                 document.querySelector('p').style.display = 'flex';
                 document.querySelector('p').innerHTML = html_p();
+                ele_bg_audio.play();
             }
 
             obs.animate();
@@ -192,7 +198,7 @@ function reset(status) {
             game.init();
         }, 700);
     }
-    document.querySelector('p').innerHTML = html_p();
+    document.getElementById('deadNum').innerHTML=deadNum;
 }
 
 //Engine
@@ -338,11 +344,17 @@ function redbox(name, x, y, width, speed, color, border) {
                 collisionCoins = this.collision(tar.coins);
             if (collisionBalls !== false) {
                 //和篮球解除，失败
+                if (sound) {
+                    ele_ball_audio.play();
+                }
                 reset();
             };
             if (collisionCoins !== false) {
                 //吃金币，得分
                 tar.coins.splice(collisionCoins, 1);
+                if (sound) {
+                    ele_coin_audio.play();
+                }
             };
             this.win();
             this.ctr = ctr || "";
@@ -632,6 +644,3 @@ function keyCtr(e) {
 
 };
 
-function audio() {
-
-};
