@@ -1,0 +1,32 @@
+.wrap{
+    margin: 100px auto;
+    width: 600px;
+}
+.table{
+    width: 100%;
+}
+table{
+    width: 100%;
+}
+table tr:nth-child(odd)  td{
+    text-align: center;
+    background: #FFC107;
+}
+table tr:nth-child(even)  td{
+    text-align: center;
+    background: #FF9800;
+}
+
+table .tr_info:hover td{
+    background: yellow;
+}
+table .choose td{
+    background: yellow!important;
+}
+.pay_info{
+    display: none;
+}
+.input-group{
+    text-align: center;
+    margin: 40px auto;
+}
