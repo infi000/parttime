@@ -104,7 +104,7 @@
             <div class="page-header font-lob">
                 <h1>This Week's Best-Selling Artists </h1>
             </div>
-            <div class="alert alert-warning font-lob" role="alert">Each week we show you who are out best-selling artists ...</div>
+            <div class="alert alert-warning font-lob" role="alert" id="log"></div>
         </div>
         <div class="row">
             <div class="col-md-2">
@@ -270,7 +270,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="your name....">
+                                <input type="text" class="form-control" placeholder="your name...." id="input_name">
                                 <span class="input-group-btn">
                                   <button class="btn btn-default" type="button" id="btn_save">save</button>
                                 </span>
@@ -292,11 +292,7 @@
     <script src="./js/vendor/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./js/ie10-viewport-bug-workaround.js"></script>
-    <script>
-    window.onload = function() {
-        $("#myModal").modal("show");
-    }
-    </script>
+    <script src="./js/artists.js"></script>
 </body>
 
 </html>
