@@ -1,12 +1,4 @@
-/* GLOBAL STYLES
--------------------------------------------------- */
-/* Padding below the footer and lighter body text */
 
-/*font{
-  font-family: 'Montez', cursive;
-  font-family: 'Cabin Sketch', cursive;
-}
-*/
 
 body {
   /*padding-bottom: 40px;*/
@@ -14,10 +6,10 @@ body {
 }
 
 .font-lob{
- font-family: 'Lobster', cursive;
+ /*font-family: 'Lobster', cursive;*/
 }
 .font-mav{
-font-family: 'Maven Pro', sans-serif;
+/*font-family: 'Maven Pro', sans-serif;*/
 }
 .font-12{
   font-size:12px;

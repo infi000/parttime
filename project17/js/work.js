@@ -5,7 +5,7 @@ var VIDEOLIST = {
     v4: '<iframe width="100%" height="480" src="https://www.youtube.com/embed/ezqpgpnFaBA" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>',
     v5: '<iframe width="100%" height="480" src="https://www.youtube.com/embed/x-Ezacf22Oc" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>'
 };
-
+var WISHLIST = [];
 $(".btn-video").on("click", function(e) {
     var type = $(this).attr('datatype');
     $("#video").modal("show");
@@ -17,12 +17,17 @@ $('#video').on('hidden.bs.modal', function(e) {
 });
 
 $(".btn-wish").on("click", function(e) {
-    $("#wish").modal("show")
+    var name = $(this).closest('.caption').find('h4').html();
+    WISHLIST.push(name);
+    $("#wish").modal("show");
     setTimeout(function() {
         $('#wish').modal('hide');
     }, 1000)
 })
-
+$("#btn_wishlist").on("click", function(e) {
+   dom_wishlist();
+    $("#wishlist").modal("show");
+})
 window.onload = loadScript;
 
 function loadScript() {
@@ -42,4 +47,20 @@ function initialize() {
         position: dell,
         map: map
     });
+}
+
+function dom_wishlist() {
+    var html = '<ul class="list-group"></ul>';
+    if (WISHLIST.length == 0) {
+        html = "NO WISH!";
+    } else {
+        for (var i = 0; i < WISHLIST.length; i++) {
+            var name=WISHLIST[i];
+            html+='<li class="list-group-item"><h3>'+name+'<h3></li>';
+
+        };
+        html+='</ul>';
+    }
+ $("#wishlist .modal-body").html(html);
+
 }

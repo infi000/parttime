@@ -21,7 +21,6 @@
     <![endif]-->
     <!-- Custom styles for this template -->
     <link href="./css/artstore.css" rel="stylesheet">
-    <link href='http://fonts.font.im/css?family=Lobster|Maven+Pro:400,500,700' rel='stylesheet' type='text/css'>
 </head>
 <!-- NAVBAR
 ================================================== -->
@@ -43,7 +42,7 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li><a><span class="glyphicon glyphicon-user" aria-hidden="true"></span>My Aaccount</a></li>
-                            <li><a><span class="glyphicon glyphicon-gift" aria-hidden="true"></span>Wish List</a></li>
+                            <li><a id="btn_wishlist" class="btn"><span class="glyphicon glyphicon-gift" aria-hidden="true"></span>Wish List</a></li>
                             <li><a><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>Shopping Cart</a></li>
                             <li><a><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>Checkout</a></li>
                         </ul>
@@ -391,7 +390,21 @@
     <div class="modal fade" id="wish" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
-              <h1 class="text-success text-center">SUCCESS!</h1>
+                <h1 class="text-success text-center">SUCCESS!</h1>
+            </div>
+        </div>
+    </div>
+    <!-- wishlist -->
+    <div class="modal fade" id="wishlist" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                WISHLIST
+            </div>
+             <div class="modal-body text-center">
+               
+                </div>
+               
             </div>
         </div>
     </div>
