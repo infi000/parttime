@@ -1,0 +1,46 @@
+/*.c1 {
+    background:#00a4b7;
+}
+.c2{
+    background: #86c1ce;
+}
+.c3{
+    background:#5bb2c3;
+}*/
+.bird {
+    position: relative;
+    top: 100px;
+}
+
+.bird div {
+    position: absolute;
+}
+
+.b1_1 {
+    width: 0;
+    height: 0;
+    border-bottom:256px solid #86c1ce;
+    border-left: 172px solid transparent;
+    -webkit-transform: rotate(-48deg);
+    z-index: 1;
+}
+
+.b1_2 {
+    width: 0;
+    height: 0;
+    border-bottom: 209px solid #00a4b7;
+    border-right: 97px solid transparent;
+    left: 142px;
+    top: -60px;
+}
+
+.b1_3 {
+border-bottom: 156px solid #5bb2c3;
+    border-left: 8px solid transparent;
+    border-right: 77px solid transparent;
+    height: 0;
+    width: 216px;
+    -webkit-transform: rotate(-112deg);
+    top: 237px;
+    left: 72px;
+}
