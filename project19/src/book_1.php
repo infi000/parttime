@@ -45,20 +45,19 @@
                             <th>City</th>
                         </tr>
                         <?php  
-                        $file_path= "../data/customers.txt";
+                        $file_path= "../data/customers.txt"；
                         $file_arr = file($file_path);
-                        $book_arr = [];
                         foreach ($file_arr as $key => $value) {
+                            echo "<tr>"
                                 foreach ($value as $key => $value) {
-                                    $book_arr[] = explode(',', $value);
+                                    echo "<td>";
+                                    echo $value;
+                                    echo "</td>";
                                 }
+                            echo "</tr>";
                         }
-                        ?>
                     </table>
                 </div>
-                <script>
-                    var book = "<?php echo json_encode($book_arr);?>";
-                </script>
                 <div class="panel panel-danger spaceabove">
                     <div class="panel-heading">
                         <h4>Orders for l k</h4>
