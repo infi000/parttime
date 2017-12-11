@@ -16,6 +16,7 @@
         width: 100%;
         height: 700px;
         overflow: hidden;
+        background: rgb(36, 36, 36);
     }
 
     .btn_show {
@@ -517,24 +518,53 @@ function init() {
 init();
 
 
-$("#drag").draggable({ axis: "x" });
-$("#drag").on("click",function(e){
-	$('.img_alert').remove();
+$("#drag").draggable({
+    axis: "x",
+    stop: function() {
+        var l = parseInt($("#drag").css("left")),
+            w = parseInt($("#drag").css("width"));
+        if (l >= 0) {
+            $("#drag").css({ left: 0 })
+        }
+        if (l - w <= -8014) {
+            $("#drag").css({ left: -(8014 - w) })
+        }
+    },
+});
+$("#drag").on("click", function(e) {
+    $('.img_alert').remove();
 })
 $("body").on("click", ".btn_show", function(e) {
-
+    /**
+     * this.width=250;
+     * this.height=260
+     * 
+     */
     if ($('.img_alert')[0]) {
         $('.img_alert').remove();
     }
     var _l = parseInt($(this).css("left")),
         _t = parseInt($(this).css("top")) - 280,
         _w = parseInt($(this).css("width")),
+        con_w = parseInt($(this).closest('.con').css("width")),
+        drag_l=parseInt($("#drag").css("left")),
+        _x = parseInt($(this).offset().left),
         css = {
             left: _l,
             top: _t,
         },
         d = JSON.parse($(this).attr('datatype')),
         html_top, html;
+    (function(){
+        //点击移动
+        var mv=(_x-con_w/2)+125;//移动距离
+        console.log(mv);
+        $("#drag").animate({
+            left: drag_l-mv},
+            'slow', function() {
+            /* stuff to do after animation is complete */
+        });
+    })()
     if (_t < 0) {
         css.top = parseInt($(this).css("top"));
         css.left = parseInt($(this).css("left")) + _w + 20;
@@ -548,11 +578,11 @@ $("body").on("click", ".btn_show", function(e) {
         case "video":
             html_top = '  <div class="img_alert_icon"><img src="./img/btn_video.png" alt=""></div>\
                 <div class="img_alert_top"  style="background-image: url(./img/' + d.src + ');">\
-                	<video src="' + d.url + '"></video>\
+                    <video src="' + d.url + '"></video>\
                 </div>'
             break;
         case "url":
-            html_top = '  <a class="img_alert_icon" href="'+d.url+'"><img src="./img/btn_url.png" alt=""></a>\
+            html_top = '  <a class="img_alert_icon" href="' + d.url + '"><img src="./img/btn_url.png" alt=""></a>\
                 <div class="img_alert_top_2" style="background-image: url(./img/' + d.src + ');">\
                 </div>'
             break;
