@@ -74,7 +74,17 @@
         };
         return o;
     };
+    var Block = function() {
+        var image = imageFromPath("./img/block.png");
+        var o = {
+            image: image,
+            x: 150,
+            y: 110,
+            alive:true,
 
+        };
+        return o;
+    };
     var GuaGame = function() {
         var canvas = document.getElementById("id-canvas");
         var context = canvas.getContext("2d");
@@ -130,7 +140,8 @@
     var __main = function() {
         var game = GuaGame();
         var paddle = Paddle();
-         ball = Ball();
+        var ball = Ball();
+        var block=Block();
         game.registerAction("a", function() {
             paddle.moveLeft();
         });
@@ -144,7 +155,6 @@
 
             ball.move();
             if(paddle.collide(ball)){
-                log("做了");
                 ball.speedY=-ball.speedY;
                 log(ball.speedY)
             }
@@ -152,6 +162,7 @@
         game.draw = function() {
             game.drawImage(paddle);
             game.drawImage(ball);
+            game.drawImage(block);
         };
     };
 

@@ -1,0 +1,363 @@
+{
+    "act": "gameRunning",
+    "data":
+    {
+        "cur_match": "0",
+        "running": 1,
+        "users": [
+            ["208334", "0", "0"],
+            ["206116", "1", "0"]
+        ]
+    }
+}
+{
+    "act": "playerjoin",
+    "data":
+    {
+        "position": 2,
+        "user_id": "206116",
+        "path": "http:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ajNVdqHZLLBpQWjaWCxJrLvBkUGbiaJM9RZyicNedqCOgOVxU5oCxkMQ8CYww3Lb5on3F1icv9gI9xFzH2WOamFMQ\/0",
+        "nickname": "infi000",
+        "sex": "1"
+    }
+}
+{
+    "act": "init",
+    "data":
+    {
+        "card_rule": "1",
+        "cur_match": "0",
+        "end_points": "5",
+        "hand_patterns": [""],
+        "max_matches": "12",
+        "number": "146592",
+        "room_users": [
+        {
+            "user_id": "206116",
+            "nickname": "infi000",
+            "path": "http:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ajNVdqHZLLBpQWjaWCxJrLvBkUGbiaJM9RZyicNedqCOgOVxU5oCxkMQ8CYww3Lb5on3F1icv9gI9xFzH2WOamFMQ\/0",
+            "online": 1,
+            "is_join": 0,
+            "value": "0"
+        },
+        {
+            "user_id": "208334",
+            "nickname": "5.zi楠👊",
+            "path": "http:\/\/wx.qlogo.cn\/mmopen\/vi_32\/TibNA3ORcSf1oElg1PZOoia343ficlnEiboUurB0jWwocWe2xvIZpUBy2g7kk427NBCxOodnc46h6KqwnefVMfT3Iw\/0",
+            "online": 0,
+            "ready": 1,
+            "is_join": 1,
+            "value": "0"
+        }],
+        "running": 1,
+        "zhuang_type": "3",
+        "zhuang_value": 0
+    }
+}
+{
+    "act": "playerjoin",
+    "data":
+    {
+        "position": 3,
+        "user_id": 208808,
+        "path": "http:\/\/wx.qlogo.cn\/mmopen\/vi_32\/Q0j4TwGTfTIhLebTibr5EVOfV639XkiaOcZiagqAFzIHUbafoVDmD1kboGBMO40liclvT2FCv3UbDlRia48VA2E9yAg\/0",
+        "nickname": "😘tvmceshi🤑",
+        "sex": 1
+    }
+}
+{
+    "act": "ready",
+    "data": "208808"
+}
+{
+    "act": "timer",
+    "data": 19
+}
+{
+    "act": "timer",
+    "data": 18
+}
+{
+    "data": "",
+    "act": "ready"
+}
+{
+    "data": "",
+    "act": "ready"
+}
+{
+    "act": "timer",
+    "data": 17
+}
+{
+    "act": "ready",
+    "data": "206116"
+}
+{
+    "act": "forbidLeaveRoom",
+    "data": ""
+}
+{
+    "act": "forbidLeaveRoom",
+    "data": ""
+}
+{
+    "act": "start",
+    "data":
+    {
+        "cur_match": "1",
+        "user_ids": [208334, 208808, 206116],
+        "account_id": 206116,
+        "cards": [
+        {
+            "color": 3,
+            "value": 5
+        },
+        {
+            "color": 3,
+            "value": 1
+        },
+        {
+            "color": 0,
+            "value": 1
+        },
+        {
+            "color": 0,
+            "value": 7
+        }]
+    }
+}
+{
+    "act": "timer",
+    "data": 6
+}
+{
+    "act": "timer",
+    "data": 5
+}
+{
+    "act": "timer",
+    "data": 4
+}
+{
+    "act": "timer",
+    "data": 3
+}
+{
+    "data": 1,
+    "act": "grabZhuang"
+}
+{
+    "act": "grabZhuang",
+    "data":
+    {
+        "zhuang_multiple": 1,
+        "user_id": "206116",
+        "sex": "1"
+    }
+}
+{
+    "act": "timer",
+    "data": 2
+}
+{
+    "act": "grabZhuang",
+    "data":
+    {
+        "zhuang_multiple": 0,
+        "user_id": 208808,
+        "sex": 1
+    }
+}
+{
+    "act": "selectedMaster",
+    "data":
+    {
+        "master_userid": "206116",
+        "multiple": 1,
+        "multiples": 1
+    }
+}
+{
+    "act": "timer",
+    "data": 9
+}
+{
+    "act": "timer",
+    "data": 8
+}
+{
+    "act": "timer",
+    "data": 7
+}
+{
+    "act": "choiceMultiple",
+    "data":
+    {
+        "multiple": 10,
+        "user_id": 208808,
+        "sex": 1
+    }
+}
+{
+    "act": "showMultiple",
+    "data": [
+    {
+        "no_choice": 1,
+        "user_id": 208334,
+        "multiple": 1,
+        "sex": "1"
+    },
+    {
+        "no_choice": 0,
+        "user_id": 208808,
+        "multiple": 10,
+        "sex": 1
+    }]
+}
+{
+    "act": "timer",
+    "data": 8
+}
+{
+    "act": "timer",
+    "data": 7
+}
+{
+    "act": "timer",
+    "data": 6
+}
+{
+    "act": "timer",
+    "data": 5
+}
+{
+    "data": "",
+    "act": "showdown"
+}
+{
+    "data": "",
+    "act": "showdown"
+}
+{
+    "act": "timer",
+    "data": 4
+}
+{
+    "act": "showdown",
+    "data":
+    {
+        "user_id": "206116",
+        "hand_cards": [
+        {
+            "color": 3,
+            "value": 5
+        },
+        {
+            "color": 3,
+            "value": 1
+        },
+        {
+            "color": 0,
+            "value": 1
+        },
+        {
+            "color": 0,
+            "value": 7
+        },
+        {
+            "color": 3,
+            "value": 10
+        }],
+        "code": 0,
+        "sex": "1"
+    }
+}
+{
+    "act": "timer",
+    "data": 3
+}
+{
+    "act": "timer",
+    "data": 2
+}
+{
+    "act": "timer",
+    "data": 1
+}
+{
+    "act": "showdownOver",
+    "data": [
+    {
+        "user_id": 208334,
+        "hand_cards": [
+        {
+            "color": 2,
+            "value": 8
+        },
+        {
+            "color": 1,
+            "value": 11
+        },
+        {
+            "color": 0,
+            "value": 2
+        },
+        {
+            "color": 2,
+            "value": 4
+        },
+        {
+            "color": 2,
+            "value": 3
+        }],
+        "code": 7,
+        "sex": "1"
+    },
+    {
+        "user_id": 208808,
+        "hand_cards": [
+        {
+            "color": 0,
+            "value": 10
+        },
+        {
+            "color": 1,
+            "value": 4
+        },
+        {
+            "color": 3,
+            "value": 6
+        },
+        {
+            "color": 3,
+            "value": 7
+        },
+        {
+            "color": 2,
+            "value": 1
+        }],
+        "code": 8,
+        "sex": 1
+    }]
+}
+{
+    "act": "settlement",
+    "data": [
+    {
+        "get_value": 0,
+        "lost_value": 105,
+        "total_value": -105,
+        "user_id": "206116"
+    },
+    {
+        "value": 5,
+        "total_value": 5,
+        "user_id": "208334"
+    },
+    {
+        "value": 100,
+        "total_value": 100,
+        "user_id": "208808"
+    }]
+}

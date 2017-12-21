@@ -1,0 +1,82 @@
+{
+    "act": "init",
+    "data":
+    {
+        "number": "514959",
+        "running": "4",
+        "room_users": [
+        {
+            "user_id": "530029",
+            "nickname": "infi000",
+            "path": "https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ajNVdqHZLLAp6GGaTqpibLUzRWbMFldywn1QagzbWOppxzkL4cG42C2lyI0H6Ye67EXtdmIAo4YajoKWnU8XL9Q\/64",
+            "online": "1",
+            "is_join": "0",
+            "value": "0",
+            "position": "1"
+        },
+        {
+            "user_id": "530067",
+            "nickname": "\ud83d\ude18tvmceshi\ud83e\udd11",
+            "path": "https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/Q0j4TwGTfTKoIFN9ondgVIkKdXslcKP5f4RicoQnv41WkpYaic6bEjoCYtD9bFOg5hge3Ced0KKQia7RIbuZucRlw\/64",
+            "online": "1",
+            "is_join": "1",
+            "value": "-4",
+            "position": "2",
+            "multiple": "4",
+            "is_master": "1",
+            "cards": [
+            {
+                "color": "0",
+                "value": "1"
+            },
+            {
+                "color": "2",
+                "value": "3"
+            },
+            {
+                "color": "1",
+                "value": "6"
+            },
+            {
+                "color": "2",
+                "value": "11"
+            },
+            {
+                "color": "1",
+                "value": "10"
+            }],
+            "code": "10"
+        },
+        {
+            "user_id": "97760",
+            "nickname": "Yi.",
+            "path": "https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/PiajxSqBRaEK9C7cFcQ0BmtXdO8IQNePia4lKJgIEhiaUIPsZwkvafBfMG802dMNSVzRhmcc8rFib0BcUicZyC5WyZg\/64",
+            "online": "1",
+            "is_join": "1",
+            "value": "4",
+            "position": "3",
+            "multiple": "1",
+            "cards": []
+        }],
+        "max_matches": "12",
+        "cur_match": "2",
+        "hand_patterns": [""],
+        "card_rule": "1",
+        "end_points": "1",
+        "zhuang_value": "0",
+        "zhuang_type": "1"
+    }
+}
+{
+    "act": "gameRunning",
+    "data":
+    {
+        "running": "4",
+        "cur_match": "2",
+        "users": [
+            ["530029", "1", "0"],
+            ["530067", "1", "-4"],
+            ["97760", "1", "4"]
+        ]
+    }
+}

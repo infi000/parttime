@@ -1,0 +1,117 @@
+{
+    "act": "init",
+    "data":
+    {
+        "number": "105826",
+        "running": "2",
+        "room_users": [
+        {
+            "user_id": "530029",
+            "nickname": "infi000",
+            "path": "https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ajNVdqHZLLAp6GGaTqpibLUzRWbMFldywn1QagzbWOppxzkL4cG42C2lyI0H6Ye67EXtdmIAo4YajoKWnU8XL9Q\/64",
+            "online": "1",
+            "is_join": "1",
+            "value": "-29",
+            "position": "1",
+            "cards": [
+            {
+                "color": "0",
+                "value": "4"
+            },
+            {
+                "color": "1",
+                "value": "4"
+            },
+            {
+                "color": "3",
+                "value": "8"
+            },
+            {
+                "color": "2",
+                "value": "1"
+            }]
+        },
+        {
+            "user_id": "530067",
+            "nickname": "\ud83d\ude18tvmceshi\ud83e\udd11",
+            "path": "https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/Q0j4TwGTfTKoIFN9ondgVIkKdXslcKP5f4RicoQnv41WkpYaic6bEjoCYtD9bFOg5hge3Ced0KKQia7RIbuZucRlw\/64",
+            "online": "1",
+            "is_join": "1",
+            "value": "29",
+            "position": "2"
+        }],
+        "max_matches": "12",
+        "cur_match": "5",
+        "hand_patterns": [""],
+        "card_rule": "1",
+        "end_points": "1",
+        "zhuang_value": "0",
+        "zhuang_type": "1"
+    }
+}
+{
+    "act": "gameRunning",
+    "data":
+    {
+        "running": "2",
+        "cur_match": "3",
+        "users": [
+            ["530067", "1", "24"],
+            ["530029", "1", "-24"]
+        ]
+    }
+}
+
+{
+    "act": "init",
+    "data":
+    {
+        "number": "105826",
+        "running": "3",
+        "room_users": [
+        {
+            "user_id": "530029",
+            "nickname": "infi000",
+            "path": "https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ajNVdqHZLLAp6GGaTqpibLUzRWbMFldywn1QagzbWOppxzkL4cG42C2lyI0H6Ye67EXtdmIAo4YajoKWnU8XL9Q\/64",
+            "online": "1",
+            "is_join": "1",
+            "value": "-50",
+            "position": "1",
+            "cards": [
+            {
+                "color": "1",
+                "value": "9"
+            },
+            {
+                "color": "1",
+                "value": "12"
+            },
+            {
+                "color": "2",
+                "value": "11"
+            },
+            {
+                "color": "1",
+                "value": "6"
+            }],
+            "is_master": "1",
+            "multiple": "4"
+        },
+        {
+            "user_id": "530067",
+            "nickname": "\ud83d\ude18tvmceshi\ud83e\udd11",
+            "path": "https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/Q0j4TwGTfTKoIFN9ondgVIkKdXslcKP5f4RicoQnv41WkpYaic6bEjoCYtD9bFOg5hge3Ced0KKQia7RIbuZucRlw\/64",
+            "online": "1",
+            "is_join": "1",
+            "value": "50",
+            "position": "2"
+        }],
+        "max_matches": "12",
+        "cur_match": "7",
+        "hand_patterns": [""],
+        "card_rule": "1",
+        "end_points": "1",
+        "zhuang_value": "0",
+        "zhuang_type": "1"
+    }
+}
