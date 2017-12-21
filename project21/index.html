@@ -341,7 +341,7 @@
 
 <body>
     <div class="con">
-        <div class="imgbox" id="drag" style="left: -616px;">
+        <div class="imgbox" id="drag" style="left:0">
             <img src="./img/timeline_2.jpg" alt="">
         </div>
     </div>
@@ -387,7 +387,8 @@ var data = [{
         year: '1883',
         addr: '巴塞罗那',
         type: 'url',
-        class: "_1883_2"
+        class: "_1883_2",
+        src: '4圣家堂.jpg'
     }, {
         name: '桂尔庄园',
         year: '1884',
@@ -506,6 +507,12 @@ var data = [{
     }
 ];
 
+
+$(document).ready(function(e){
+    init();
+})
+
+
 function init() {
     var html = "";
     for (var i = 0; i < data.length; i++) {
@@ -514,8 +521,24 @@ function init() {
         html += '<div class="btn_show ' + d.class + '" datatype=' + $d + '></div>';
     };
     $("#drag").append(html);
+    //创建 弹窗
+    var $alert_html = $('<div class="img_alert" style="left: 1654px; top: 206px;display:none">\
+                <a class="img_alert_icon" href="undefined"><img src="./img/btn_url.png" alt=""></a>\
+                <div class="img_alert_top_2" style="background-image: url(./img/4圣家堂.jpg);"> </div>\
+                <div class="img_alert_bottom">\
+                    <dl>\
+                        <dt>圣家族大教堂</dt>\
+                        <dd>巴塞罗那/1883</dd>\
+                    </dl>\
+                </div>\
+            </div>');
+    $("#drag").append($alert_html);
+    dragMove($("._1883_2")[0],function(){
+        $alert_html.fadeIn("slow")
+    });
+    ;
 }
-init();
+
 
 
 $("#drag").draggable({
@@ -533,7 +556,7 @@ $("#drag").draggable({
 });
 $("#drag").on("click", function(e) {
     $('.img_alert').remove();
-})
+});
 $("body").on("click", ".btn_show", function(e) {
     /**
      * this.width=250;
@@ -546,25 +569,13 @@ $("body").on("click", ".btn_show", function(e) {
     var _l = parseInt($(this).css("left")),
         _t = parseInt($(this).css("top")) - 280,
         _w = parseInt($(this).css("width")),
-        con_w = parseInt($(this).closest('.con').css("width")),
-        drag_l=parseInt($("#drag").css("left")),
-        _x = parseInt($(this).offset().left),
         css = {
             left: _l,
             top: _t,
         },
         d = JSON.parse($(this).attr('datatype')),
         html_top, html;
-    (function(){
-        //点击移动
-        var mv=(_x-con_w/2)+125;//移动距离
-        console.log(mv);
-        $("#drag").animate({
-            left: drag_l-mv},
-            'slow', function() {
-            /* stuff to do after animation is complete */
-        });
-    })()
+dragMove(this);
     if (_t < 0) {
         css.top = parseInt($(this).css("top"));
         css.left = parseInt($(this).css("left")) + _w + 20;
@@ -597,7 +608,22 @@ $("body").on("click", ".btn_show", function(e) {
             </div>');
     $("#drag").append($html);
     $html.css(css);
-})
+});
+
+
+function dragMove(ele,fun) {
+    //点击移动
+    var con_w = parseInt($(ele).closest('.con').css("width")),
+        drag_l = parseInt($("#drag").css("left")),
+        _x = parseInt($(ele).offset().left),
+        mv = (_x - con_w / 2) + 125; //移动距离
+    var _fun=fun||function(){};   
+    $("#drag").animate({
+            left: drag_l - mv
+        },
+        'slow',
+        fun);
+}
 </script>
 
 </html>

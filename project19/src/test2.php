@@ -14,7 +14,7 @@ while(! feof($file))
 	$str= fgets($file);
 	$arr= explode(",",$str);
 	$id=$arr[1];
-	echo $id.$query."<br>";
+	// echo $id.$query."<br>";
 	if($query==$id){
 		$i++;
 		echo "id:".$arr[0]."name:".$arr[3]."<br>";
