@@ -20,6 +20,15 @@
         img.src = path;
         return img;
     };
+    var Collide = function(a, b) {
+        //a=ball,b=blank
+        if (a.y + a.image.height > b.y && a.y < b.y + b.image.height) {
+            if (a.x > b.x && a.x < b.x + b.image.width) {
+                return true;
+            }
+        }
+        return false;
+    };
     var Paddle = function() {
         var image = imageFromPath("./img/blank.png");
         var o = {
@@ -27,16 +36,26 @@
             x: 100,
             y: 250,
             speed: 5,
+            move: function(x) {
+                //判断边界
+                if (x < 0) {
+                    x = 0;
+                }
+                if (x > 400 - this.image.width) {
+                    x = 400 - this.image.width;
+                }
+                this.x = x;
+            },
             moveLeft: function() {
-                this.x -= this.speed;
+                this.move(this.x - this.speed);
             },
             moveRight: function() {
-                this.x += this.speed;
+                this.move(this.x + this.speed);
             },
-            collide:function (ball) {
-                if(ball.y>this.y-ball.image.height){
-                    if(ball.x>this.x&&ball.x<this.x+this.image.width){
-                        log("装")
+            collide: function(ball) {
+                if (ball.y + ball.image.height > this.y) {
+                    if (ball.x > this.x && ball.x < this.x + this.image.width) {
+
                         return true;
                     }
                 }
@@ -52,25 +71,28 @@
             image: image,
             x: 150,
             y: 210,
-            speedX:5,
-            speedY:5,
+            speedX: 5,
+            speedY: 5,
             fired: false,
             fire: function() {
                 this.fired = true;
             },
             move: function() {
-                if (this.fired){
-                    if(this.x<0||this.x>400){
-                        this.speedX=-this.speedX
+                if (this.fired) {
+                    if (this.x < 0 || this.x > 400) {
+                        this.speedX = -this.speedX
                     }
-                    if(this.y<0||this.y>300){
-                        this.speedY=-this.speedY
+                    if (this.y < 0 || this.y > 300) {
+                        this.speedY = -this.speedY
                     }
                     //move
-                    this.x+=this.speedX;
-                    this.y+=this.speedY;
+                    this.x += this.speedX;
+                    this.y += this.speedY;
                 }
             },
+            bounce: function() {
+                this.speedY = -this.speedY;
+            }
         };
         return o;
     };
@@ -78,10 +100,15 @@
         var image = imageFromPath("./img/block.png");
         var o = {
             image: image,
-            x: 150,
+            x: 50,
             y: 110,
-            alive:true,
-
+            alive: true,
+            kill: function() {
+                this.alive = false;
+            },
+            collide: function(ball) {
+                return this.alive && (Collide(ball, this) || Collide(this, ball));
+            },
         };
         return o;
     };
@@ -141,7 +168,12 @@
         var game = GuaGame();
         var paddle = Paddle();
         var ball = Ball();
-        var block=Block();
+        blocks = [];
+        for (var i = 0; i < 3; i++) {
+            var b = Block();
+            b.x = i * 150;
+            blocks.push(b);
+        }
         game.registerAction("a", function() {
             paddle.moveLeft();
         });
@@ -154,15 +186,32 @@
         game.update = function() {
 
             ball.move();
-            if(paddle.collide(ball)){
-                ball.speedY=-ball.speedY;
-                log(ball.speedY)
+            if (paddle.collide(ball)) {
+                ball.speedY = -ball.speedY;
             }
+            //block碰撞,1.block消失,2.ball反弹
+
+            for (var i = 0; i < blocks.length; i++) {
+                var b = blocks[i];
+                if (b.collide(ball)) {
+                    b.kill();
+                    ball.bounce();
+                }
+            }
+
         };
         game.draw = function() {
+            //绘制paddle
             game.drawImage(paddle);
+            //绘制iball
             game.drawImage(ball);
-            game.drawImage(block);
+            //绘制block,存活时绘制
+            for (var i = 0; i < blocks.length; i++) {
+                var b = blocks[i];
+                if (b.alive) {
+                    game.drawImage(b);
+                }
+            }
         };
     };
 

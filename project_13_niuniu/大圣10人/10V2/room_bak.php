@@ -1706,7 +1706,7 @@
 
     body {
         min-height: 5.6640rem;
-        background-repeat: no-repeat;
+        background: url("http://static.wanzj.cn/images/niuniuten/background.jpg") no-repeat;
         background-size: 100% 100%;
     }
 
@@ -3304,65 +3304,6 @@
         z-index: 100;
     }
     </style>
-    <script>
-    //切换UI
-    //取search
-function getSearch(str) {
-    var s = str || location.search.substr(1),
-        o = {}
-    if (s.length > 2) {
-        var fg = s.indexOf("&amp;") > -1 ? "&amp;" : "&",
-            arr = (s !== "" && s.split(fg)) || [""],
-            arrL = arr.length - 1,
-            i = -1,
-            key = null,
-            v = null,
-            a = null;
-        do {
-            var a = arr[++i].split("=");
-            if (a) {
-                o[a[0]] = decodeURIComponent(a[1])
-            }
-        } while (i < arrL)
-    }
-    return o
-};
-
-var TYPE=getSearch().type||"dasheng";
-var BGURL="http://static.wanzj.cn/images/niuniuten/background.jpg";
-var BODYSTYLE_chaowen="body:before {content: '';position: absolute;left: 50%;-webkit-transform: translate(-50%);-moz-transform: translate(-50%);-ms-transform: translate(-50%);-o-transform: translate(-50%);transform: translate(-50%);bottom: .7680rem;width: .6864rem;height: .2688rem;background:url(../static/images/chaowen_logo.png) no-repeat 0 0 / 100% 100%;}";
-var BODYSTYLE_518="body:before {content: '';position: absolute;left: 50%;-webkit-transform: translate(-50%);-moz-transform: translate(-50%);-ms-transform: translate(-50%);-o-transform: translate(-50%);transform: translate(-50%);bottom: .7680rem;width: .6864rem;height: .2688rem;background:url(../static/images/518_logo.png) no-repeat 0 0 / 100% 100%;}";
-var BODYSTYLE_liuliu="    .prepare, .showdown {     display: none;     position: absolute;     z-index: 12;     left: 50%;     bottom: 1.2000rem;     -webkit-transform: translate(-50%);     -moz-transform: translate(-50%);     -ms-transform: translate(-50%);     -o-transform: translate(-50%);     transform: translate(-50%);     z-index: 10;     width: .7920rem;     height: .3840rem;     line-height: .3840rem;     text-align: center;     color: #FFFFFF;     font-size: 0;     background: url(http://cdn.lfzgame.com/images/sangong/prepare.png) no-repeat;     background-size: 100% 100%;     text-shadow: .0048rem 0 0 #bbb, 0 .0048rem 0 #bbb; } .showdown {     display: none;     background: url(http://cdn.lfzgame.com/images/sangong/showcard.png) no-repeat;     background-size: 100% 100%; }"
-$(document).ready(function(){
-switch(TYPE){
-    case "dasheng":
-    //1,3,5,8
-    $('.player-number input[data-value="2"]').remove();
-    break;
-    case "liuliu":
-    //1358
-    $('.player-number input[data-value="2"]').remove();
-    BGURL="http://cdn.lfzgame.com/images/liuliuxianyue/game-bull-bg.jpg";
-    $('head').append("<style>"+BODYSTYLE_liuliu+"</style>");
-    break;
-    case "chaowen":
-    $('.player-number input[data-value="8"]').remove();
-   $('head').append("<style>"+BODYSTYLE_chaowen+"</style>");
-    break;
-    case "feiying":
-    $('.player-number input[data-value="8"]').remove();
-    BGURL="http://cdn.lfzgame.com/images/laopengyouqipai/game-bull6.jpg";
-    break;
-    case "518":
-    $('.player-number input[data-value="8"]').remove();
-     $('head').append("<style>"+BODYSTYLE_518+"</style>");
-    break;
-}
-$("body").css({"background-image":"url("+BGURL+")"});
-});
-
-
-    </script>
 </head>
 
 <body>
@@ -3573,7 +3514,6 @@ $("body").css({"background-image":"url("+BGURL+")"});
             <input type="button" data-value="2" value="2倍">
             <input type="button" data-value="3" value="3倍">
             <input type="button" data-value="5" value="5倍">
-            <input type="button" data-value="8" value="8倍">
         </div>
         <div class="selectMultiple">
             <div class="item" data-pos="0"></div>

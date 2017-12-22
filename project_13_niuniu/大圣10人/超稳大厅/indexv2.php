@@ -4311,7 +4311,7 @@
                 if (d.status == 1) {
                     $('.niuniuTen-mask').hide();
                     if (USE_QRCODE) {
-                        var url = 'http://' + JUMP_DOMAIN + '/tenniuniu?room_code=' + d.info.code;
+                        var url = 'http://' + JUMP_DOMAIN + '/tenniuniu?type=chaowen&room_code=' + d.info.code;
                         qrcodeCreate(url, 4, generalQrcodeData(d.info));
                         if (parseInt(d.info.count_matchs) === 12) {
                             $('.user-info .room-card span').text(Page.roomCard - 2);
@@ -4321,7 +4321,7 @@
                             Page.roomCard = parseInt($('.user-info .room-card span').text());
                         }
                     } else {
-                        location.href = 'tenniuniu?room_code=' + d.info.code;
+                        location.href = 'tenniuniu?type=chaowen&room_code=' + d.info.code;
                     }
                 } else if (d.status == 2) {
                     $.alert('已有创建房间', 'error');

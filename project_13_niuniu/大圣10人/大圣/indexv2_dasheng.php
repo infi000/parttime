@@ -6316,10 +6316,10 @@ var Page = {
     douniuTenSubmit: function() { var zhuang_type = $('.niuniuTen-mask .tab span.tab-item.on').attr('data-item'); var end_points = $('.niuniuTen-mask .showNumber i').text(); var card_rule = $('.niuniuTen-mask [name="niuniuTen_card_rule"]:checked').val(); var zhuang_value = $('.niuniuTen-mask [name="niuniuTen_zhuang_value"]:checked').val(); var hand_patterns = [];
         $('.niuniuTen-mask [name="niuniuTen_hand_patterns"]').each(function() { if (this.checked) { hand_patterns.push(this.value); } }); var max_matches = $('.niuniuTen-mask [name="niuniuTen_max_matches"]:checked').val(); var data = { 'zhuang_type': zhuang_type, 'end_points': end_points, 'card_rule': card_rule, 'hand_patterns': hand_patterns.join(','), 'max_matches': max_matches, 'zhuang_value': zhuang_value };
         storage.set('roomrule_niuniuTen', data);
-        ajax('nine9ye/create10NiuRoom', data, function(d) { if (d.status == 1) { $('.niuniuTen-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/tenniuniu?room_code=' + d.info.code;
+        ajax('nine9ye/create10NiuRoom', data, function(d) { if (d.status == 1) { $('.niuniuTen-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/tenniuniu?type=dasheng&room_code=' + d.info.code;
                     qrcodeCreate(url, 4, generalQrcodeData(d.info)); if (parseInt(d.info.count_matchs) === 12) { $('.user-info .room-card span').text(Page.roomCard - 2);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 24) { $('.user-info .room-card span').text(Page.roomCard - 4);
-                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'tenniuniu?room_code=' + d.info.code; } } else if (d.status == 2) { $.alert('已有创建房间', 'error'); } else if (d.status == 3) { Page.phoneMask('.niuniuTen-mask'); } else { $.alert(d.info); } }); },
+                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'tenniuniu?type=dasheng&room_code=' + d.info.code; } } else if (d.status == 2) { $.alert('已有创建房间', 'error'); } else if (d.status == 3) { Page.phoneMask('.niuniuTen-mask'); } else { $.alert(d.info); } }); },
     douniuSwitch: function(className) {
         $(className + ' .tab span').touch(function() {
             var item = $(this).data('item');
