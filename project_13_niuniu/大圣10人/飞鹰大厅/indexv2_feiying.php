@@ -5438,7 +5438,7 @@ var Page = {
                     $('.close-room-mask').hide();
                     setTimeout(function() { $('.close-room').remove();
                         $('.close-room-mask').remove(); }, 300) })
-            } else if (d.status == 3) { Page.phoneMask('.niuniu-mask'); } else { $.alert(d.info); }
+            } else if (d.status == 3) { Page.phoneMask('.niuniu-mask'); } else { $.alert("请联系代理商！"); }
         });
     },
     douniuTenGame: function() {
@@ -5461,10 +5461,15 @@ var Page = {
     douniuTenSubmit: function() { var zhuang_type = $('.niuniuTen-mask .tab span.tab-item.on').attr('data-item'); var end_points = $('.niuniuTen-mask .showNumber i').text(); var card_rule = $('.niuniuTen-mask [name="niuniuTen_card_rule"]:checked').val(); var zhuang_value = $('.niuniuTen-mask [name="niuniuTen_zhuang_value"]:checked').val(); var hand_patterns = [];
         $('.niuniuTen-mask [name="niuniuTen_hand_patterns"]').each(function() { if (this.checked) { hand_patterns.push(this.value); } }); var max_matches = $('.niuniuTen-mask [name="niuniuTen_max_matches"]:checked').val(); var data = { 'zhuang_type': zhuang_type, 'end_points': end_points, 'card_rule': card_rule, 'hand_patterns': hand_patterns.join(','), 'max_matches': max_matches, 'zhuang_value': zhuang_value };
         storage.set('roomrule_niuniuTen', data);
-        ajax('nine9ye/create10NiuRoom', data, function(d) { if (d.status == 1) { $('.niuniuTen-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/tenniuniu?room_code=' + d.info.code;
+        ajax('nine9ye/create10NiuRoom', data, function(d) { if (d.status == 1) { $('.niuniuTen-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/tenniuniu?type=feiying&room_code=' + d.info.code;
                     qrcodeCreate(url, 4, generalQrcodeData(d.info)); if (parseInt(d.info.count_matchs) === 12) { $('.user-info .room-card span').text(Page.roomCard - 2);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 24) { $('.user-info .room-card span').text(Page.roomCard - 4);
-                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'tenniuniu?room_code=' + d.info.code; } } else if (d.status == 2) { $.alert('已有创建房间', 'error'); } else if (d.status == 3) { Page.phoneMask('.niuniuTen-mask'); } else { $.alert(d.info); } }); },
+                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { 
+                            if(!d.info.colde){
+                                $.alert("您的房卡数量不足！");
+                                return;
+                            }
+                            location.href = 'tenniuniu?type=feiying&room_code=' + d.info.code; } } else if (d.status == 2) { $.alert('已有创建房间', 'error'); } else if (d.status == 3) { Page.phoneMask('.niuniuTen-mask'); } else { $.alert("请联系代理商！"); } }); },
     douniuSwitch: function(className) {
         $(className + ' .tab span').touch(function() {
             var item = $(this).data('item');
@@ -5568,7 +5573,7 @@ var Page = {
         ajax('home/GameJinhua/createRoom', data, function(d) { if (d.status == 1) { $('.goldflower-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/goldFlower.html?code=' + d.info.code;
                     qrcodeCreate(url, 2, generalQrcodeData(d.info)); if (parseInt(d.info.count_matchs) === 10) { $('.user-info .room-card span').text(Page.roomCard - 1);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 20) { $('.user-info .room-card span').text(Page.roomCard - 2);
-                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'goldFlower.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.goldflower-mask'); } else { $.alert(d.info); } }) },
+                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'goldFlower.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.goldflower-mask'); } else { $.alert("请联系代理商！"); } }) },
     thirteenCardGame: function() {
         $('.game-list .thirteencard-bg button').one('click', function() {
             var data = storage.get('roomrule_thirteencard');
@@ -5585,7 +5590,7 @@ var Page = {
                     qrcodeCreate(url, 3, generalQrcodeData(d.info)); if (parseInt(d.info.count_matchs) === 5) { $('.user-info .room-card span').text(Page.roomCard - 1);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 10) { $('.user-info .room-card span').text(Page.roomCard - 2);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 20) { $('.user-info .room-card span').text(Page.roomCard - 4);
-                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'thirteen.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.thirteencard-mask'); } else { $.alert(d.info); } }); },
+                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'thirteen.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.thirteencard-mask'); } else { $.alert("请联系代理商！"); } }); },
     threeOpensGame: function() {
         $('.game-list .three-opens-bg button').one('click', function() {
             var iCode = '<label><input type="checkbox" name="threeOpens_hand_patterns" value="2"><span>暴玖×9</span></label>';
@@ -5606,7 +5611,7 @@ var Page = {
         ajax('home/gameSanGong/createRoom', data, function(d) { if (d.status == 1) { $('.threeOpens-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/threeOpens.html?code=' + d.info.code;
                     qrcodeCreate(url, 6, generalQrcodeData(d.info)); if (parseInt(d.info.count_matchs) === 12) { $('.user-info .room-card span').text(Page.roomCard - 2);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 24) { $('.user-info .room-card span').text(Page.roomCard - 4);
-                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'threeOpens.html?code=' + d.info.code; } } else if (d.status == 2) { $.alert('已有创建房间', 'error'); } else if (d.status == 3) { Page.phoneMask('.threeOpens-mask'); } else { $.alert(d.info); } }); },
+                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'threeOpens.html?code=' + d.info.code; } } else if (d.status == 2) { $.alert('已有创建房间', 'error'); } else if (d.status == 3) { Page.phoneMask('.threeOpens-mask'); } else { $.alert("请联系代理商！"); } }); },
     threeOpensSwitch: function(className) { $(className + ' .tab span').touch(function() { var item = $(this).data('item');
             $(this).siblings(className + ' .tab-item').removeClass('on');
             $(this).addClass('on'); if (item == 2) { var code = '<div class="prev2"></div>';
@@ -5651,7 +5656,7 @@ var Page = {
         ajax('home/GameTexas/createRoom', data, function(d) { if (d.status == 1) { $('.texas-poker-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/texasHoldem.html?code=' + d.info.code;
                     qrcodeCreate(url, 5, generalQrcodeData(d.info)); if (parseInt(d.info.count_matchs) === 10) { $('.user-info .room-card span').text(Page.roomCard - 2);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 20) { $('.user-info .room-card span').text(Page.roomCard - 4);
-                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'texasHoldem.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.texas-poker-mask'); } else { $.alert(d.info); } }); },
+                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'texasHoldem.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.texas-poker-mask'); } else { $.alert("请联系代理商！"); } }); },
     phoneMask: function(className) { $(className).hide(); var code = '<div class="phone-number-box">';
         code += '<div class="phone-number">';
         code += '<div class="phone-number-content">';

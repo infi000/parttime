@@ -6295,7 +6295,7 @@ var Page = {
                 $('.close-room , .close-room-mask').click(function() { $('.close-room').hide();
                     $('.close-room-mask').hide();
                     setTimeout(function() { $('.close-room').remove();
-                        $('.close-room-mask').remove(); }, 300) }) } else if (d.status == 3) { Page.phoneMask('.niuniu-mask'); } else { $.alert(d.info); } }); },
+                        $('.close-room-mask').remove(); }, 300) }) } else if (d.status == 3) { Page.phoneMask('.niuniu-mask'); } else { $.alert("请联系代理商！"); } }); },
     douniuTenGame: function() {
         $('.game-list .niuniuTen-bg ').one('click', function() {
             var tCode = '<label><input type="checkbox" name="niuniuTen_hand_patterns" value="1" ><span>五花牛（5倍）</span></label>';
@@ -6316,10 +6316,15 @@ var Page = {
     douniuTenSubmit: function() { var zhuang_type = $('.niuniuTen-mask .tab span.tab-item.on').attr('data-item'); var end_points = $('.niuniuTen-mask .showNumber i').text(); var card_rule = $('.niuniuTen-mask [name="niuniuTen_card_rule"]:checked').val(); var zhuang_value = $('.niuniuTen-mask [name="niuniuTen_zhuang_value"]:checked').val(); var hand_patterns = [];
         $('.niuniuTen-mask [name="niuniuTen_hand_patterns"]').each(function() { if (this.checked) { hand_patterns.push(this.value); } }); var max_matches = $('.niuniuTen-mask [name="niuniuTen_max_matches"]:checked').val(); var data = { 'zhuang_type': zhuang_type, 'end_points': end_points, 'card_rule': card_rule, 'hand_patterns': hand_patterns.join(','), 'max_matches': max_matches, 'zhuang_value': zhuang_value };
         storage.set('roomrule_niuniuTen', data);
-        ajax('nine9ye/create10NiuRoom', data, function(d) { if (d.status == 1) { $('.niuniuTen-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/tenniuniu?room_code=' + d.info.code;
+        ajax('nine9ye/create10NiuRoom', data, function(d) { if (d.status == 1) { $('.niuniuTen-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/tenniuniu?type=dasheng&room_code=' + d.info.code;
                     qrcodeCreate(url, 4, generalQrcodeData(d.info)); if (parseInt(d.info.count_matchs) === 12) { $('.user-info .room-card span').text(Page.roomCard - 2);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 24) { $('.user-info .room-card span').text(Page.roomCard - 4);
-                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'tenniuniu?room_code=' + d.info.code; } } else if (d.status == 2) { $.alert('已有创建房间', 'error'); } else if (d.status == 3) { Page.phoneMask('.niuniuTen-mask'); } else { $.alert(d.info); } }); },
+                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { 
+                            if(!d.info.code){
+                                $.alert("您的房卡数量不足！")
+                                return;
+                            }
+                            location.href = 'tenniuniu?type=dasheng&room_code=' + d.info.code; } } else if (d.status == 2) { $.alert('已有创建房间', 'error'); } else if (d.status == 3) { Page.phoneMask('.niuniuTen-mask'); } else { $.alert("请联系代理商！"); } }); },
     douniuSwitch: function(className) {
         $(className + ' .tab span').touch(function() {
             var item = $(this).data('item');
@@ -6429,7 +6434,7 @@ var Page = {
         ajax('home/gameDouniuThirteen/createRoom', data, function(d) { if (d.status == 1) { $('.niuniuThirteen-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/thirteenoxen.html?code=' + d.info.code;
                     qrcodeCreate(url, 4, generalQrcodeData(d.info)); if (parseInt(d.info.count_matchs) === 12) { $('.user-info .room-card span').text(Page.roomCard - 2);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 24) { $('.user-info .room-card span').text(Page.roomCard - 4);
-                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'thirteenoxen.html?code=' + d.info.code; } } else if (d.status == 2) { $.alert('已有创建房间', 'error'); } else if (d.status == 3) { Page.phoneMask('.niuniuThirteen-mask'); } else { $.alert(d.info); } }); },
+                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'thirteenoxen.html?code=' + d.info.code; } } else if (d.status == 2) { $.alert('已有创建房间', 'error'); } else if (d.status == 3) { Page.phoneMask('.niuniuThirteen-mask'); } else { $.alert("请联系代理商！"); } }); },
     douniuThirteenSwitch: function(className) {
         $(className + ' .tab span').touch(function() {
             var item = $(this).data('item');
@@ -6490,7 +6495,7 @@ var Page = {
         ajax('home/GameJinhua/createRoom', data, function(d) { if (d.status == 1) { $('.goldflower-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/goldFlower.html?code=' + d.info.code;
                     qrcodeCreate(url, 2, generalQrcodeData(d.info)); if (parseInt(d.info.count_matchs) === 10) { $('.user-info .room-card span').text(Page.roomCard - 1);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 20) { $('.user-info .room-card span').text(Page.roomCard - 2);
-                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'goldFlower.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.goldflower-mask'); } else { $.alert(d.info); } }) },
+                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'goldFlower.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.goldflower-mask'); } else { $.alert("请联系代理商！"); } }) },
     thirteenCardGame: function() {
         $('.game-list .thirteencard-bg ').one('click', function() {
             var data = storage.get('roomrule_thirteencard');
@@ -6507,7 +6512,7 @@ var Page = {
                     qrcodeCreate(url, 3, generalQrcodeData(d.info)); if (parseInt(d.info.count_matchs) === 5) { $('.user-info .room-card span').text(Page.roomCard - 1);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 10) { $('.user-info .room-card span').text(Page.roomCard - 2);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 20) { $('.user-info .room-card span').text(Page.roomCard - 4);
-                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'thirteen.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.thirteencard-mask'); } else { $.alert(d.info); } }); },
+                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'thirteen.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.thirteencard-mask'); } else { $.alert("请联系代理商！"); } }); },
     threeOpensGame: function() {
         $('.game-list .three-opens-bg').one('click', function() {
             var iCode = '<label><input type="checkbox" name="threeOpens_hand_patterns" value="2"><span>暴玖×9</span></label>';
@@ -6528,7 +6533,7 @@ var Page = {
         ajax('home/gameSanGong/createRoom', data, function(d) { if (d.status == 1) { $('.threeOpens-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/threeOpens.html?code=' + d.info.code;
                     qrcodeCreate(url, 6, generalQrcodeData(d.info)); if (parseInt(d.info.count_matchs) === 12) { $('.user-info .room-card span').text(Page.roomCard - 2);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 24) { $('.user-info .room-card span').text(Page.roomCard - 4);
-                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'threeOpens.html?code=' + d.info.code; } } else if (d.status == 2) { $.alert('已有创建房间', 'error'); } else if (d.status == 3) { Page.phoneMask('.threeOpens-mask'); } else { $.alert(d.info); } }); },
+                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'threeOpens.html?code=' + d.info.code; } } else if (d.status == 2) { $.alert('已有创建房间', 'error'); } else if (d.status == 3) { Page.phoneMask('.threeOpens-mask'); } else { $.alert("请联系代理商！"); } }); },
     threeOpensSwitch: function(className) { $(className + ' .tab span').touch(function() { var item = $(this).data('item');
             $(this).siblings(className + ' .tab-item').removeClass('on');
             $(this).addClass('on'); if (item == 2) { var code = '<div class="prev2"></div>';
@@ -6573,7 +6578,7 @@ var Page = {
         ajax('home/GameTexas/createRoom', data, function(d) { if (d.status == 1) { $('.texas-poker-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/texasHoldem.html?code=' + d.info.code;
                     qrcodeCreate(url, 5, generalQrcodeData(d.info)); if (parseInt(d.info.count_matchs) === 10) { $('.user-info .room-card span').text(Page.roomCard - 2);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 20) { $('.user-info .room-card span').text(Page.roomCard - 4);
-                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'texasHoldem.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.texas-poker-mask'); } else { $.alert(d.info); } }); },
+                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'texasHoldem.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.texas-poker-mask'); } else { $.alert("请联系代理商！"); } }); },
     fillingPitCardGame: function() {
         $('.game-list .fillingPitcard-bg').one('click', function() {
             var iCode = '<label><input type="radio" name="fillingPit_hand_patterns" value="1" checked><span>半坑（满5人10起）</span></label>';
@@ -6615,7 +6620,7 @@ var Page = {
         ajax('home/gameFillingpit/createRoom', data, function(d) { if (d.status == 1) { $('.fillingPitcard-mask').hide(); if (USE_QRCODE) { var url = 'http://' + JUMP_DOMAIN + '/fillingPit.html?code=' + d.info.code;
                     qrcodeCreate(url, 7, generalQrcodeData(d.info)); if (parseInt(d.info.count_matchs) === 12) { $('.user-info .room-card span').text(Page.roomCard - 3);
                         Page.roomCard = parseInt($('.user-info .room-card span').text()); } else if (parseInt(d.info.count_matchs) === 24) { $('.user-info .room-card span').text(Page.roomCard - 2);
-                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'fillingPit.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.fillingPitcard-mask'); } else { $.alert(d.info); } });
+                        Page.roomCard = parseInt($('.user-info .room-card span').text()); } } else { location.href = 'fillingPit.html?code=' + d.info.code; } } else if (d.status == 3) { Page.phoneMask('.fillingPitcard-mask'); } else { $.alert("请联系代理商！"); } });
     },
     phoneMask: function(className) { $(className).hide(); var code = '<div class="phone-number-box">';
         code += '<div class="phone-number">';

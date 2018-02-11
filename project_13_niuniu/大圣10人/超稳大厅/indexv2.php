@@ -4257,7 +4257,7 @@
                 } else if (d.status == 3) {
                     Page.phoneMask('.niuniu-mask');
                 } else {
-                    $.alert(d.info);
+                    $.alert("请联系代理商！");
                 }
             });
         }, douniuTenGame: function () {
@@ -4311,7 +4311,7 @@
                 if (d.status == 1) {
                     $('.niuniuTen-mask').hide();
                     if (USE_QRCODE) {
-                        var url = 'http://' + JUMP_DOMAIN + '/tenniuniu?room_code=' + d.info.code;
+                        var url = 'http://' + JUMP_DOMAIN + '/tenniuniu?type=chaowen&room_code=' + d.info.code;
                         qrcodeCreate(url, 4, generalQrcodeData(d.info));
                         if (parseInt(d.info.count_matchs) === 12) {
                             $('.user-info .room-card span').text(Page.roomCard - 2);
@@ -4321,14 +4321,18 @@
                             Page.roomCard = parseInt($('.user-info .room-card span').text());
                         }
                     } else {
-                        location.href = 'tenniuniu?room_code=' + d.info.code;
+                        if(!d.info.code){
+                            $.alert("您的房卡数量不足！");
+                            return 
+                        }
+                        location.href = 'tenniuniu?type=chaowen&room_code=' + d.info.code;
                     }
                 } else if (d.status == 2) {
                     $.alert('已有创建房间', 'error');
                 } else if (d.status == 3) {
                     Page.phoneMask('.niuniuTen-mask');
                 } else {
-                    $.alert(d.info);
+                    $.alert("请联系代理商！");
                 }
             });
         }, douniuSwitch: function (className) {
@@ -4479,7 +4483,7 @@
                 } else if (d.status == 3) {
                     Page.phoneMask('.goldflower-mask');
                 } else {
-                    $.alert(d.info);
+                    $.alert("请联系代理商！");
                 }
             })
         }, thirteenCardGame: function () {
@@ -4531,7 +4535,7 @@
                 } else if (d.status == 3) {
                     Page.phoneMask('.thirteencard-mask');
                 } else {
-                    $.alert(d.info);
+                    $.alert("请联系代理商！");
                 }
             });
         }, threeOpensGame: function () {
@@ -4591,7 +4595,7 @@
                 } else if (d.status == 3) {
                     Page.phoneMask('.threeOpens-mask');
                 } else {
-                    $.alert(d.info);
+                    $.alert("请联系代理商！");
                 }
             });
         }, threeOpensSwitch: function (className) {
@@ -4672,7 +4676,7 @@
                 } else if (d.status == 3) {
                     Page.phoneMask('.texas-poker-mask');
                 } else {
-                    $.alert(d.info);
+                    $.alert("请联系代理商！");
                 }
             });
         }, phoneMask: function (className) {
