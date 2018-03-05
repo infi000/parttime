@@ -32,9 +32,7 @@ function getOrderList($url){
 		$title=$arr[3];
 		$isbn=$arr[2];
 		$type=$arr[4];
-		// echo "hahahah/////";
 		$ord= new Order($id,$title,$isbn,$type);
-		// $ord= new Order(1,2,3,4);
 		array_push($order,$ord);
 	}
 	return $order;

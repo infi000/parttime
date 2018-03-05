@@ -13,11 +13,8 @@ function createDom_customer($customerList){
 	  	$arr=$customerList[$x];
 	  	$id=$arr->id;
 		$name=$arr->name;
-		// $email=$arr[3];
 		$university=$arr->university;
-		// $addr=$arr[5];
 		$city=$arr->city;
-		// $country=$arr[8];
 		$sales=$arr->sales;
 	  	$html=$html.' <tr><td class="mdl-data-table__cell--non-numeric "><a href="?customer='.$id.'">'.$name.'</a></td><td class="mdl-data-table__cell--non-numeric">'.$university.'</td><td class="mdl-data-table__cell--non-numeric">'.$city.'</td><td><span class="inlinesparkline">'.$sales.'</span></td></tr>';
 	}	
@@ -50,33 +47,37 @@ function createDom_customerDetail($customerList){
 
 
 function createDom_orderDetail($orderList){
-	$html="";
+	
 	if (isset($_GET['customer'])){
+		$html_table_th='<table class="mdl-data-table  mdl-shadow--2dp"><thead><tr><th class="mdl-data-table__cell--non-numeric">Cover</th><th class="mdl-data-table__cell--non-numeric">ISBN</th><th class="mdl-data-table__cell--non-numeric">Title</th></tr></thead><tbody>';
+		$html="";
 		$query_id = $_GET['customer'];
 		$arrlength=count($orderList);
 		for($x=0;$x<$arrlength;$x++) {
 		  	$arr=$orderList[$x];
 		  	$id=$arr->id;
 			$isbn=$arr->isbn;
-			// $type=$arr->type;
-			// $title=$arr->title;
-			echo json_encode($arr)."\n";
+			$type=$arr->type;
+			$title=$arr->title;
 			if($query_id==$id){
-				// echo $query_id.'======>'.$id;
-				// echo "/bn";
-				// $html=$html.'<tr><td class="mdl-data-table__cell--non-numeric"><img src="./images/tinysquare/'.$isbn.'.jpg" alt=""></td><td class="mdl-data-table__cell--non-numeric">'.$isbn.'</td><td class="mdl-data-table__cell--non-numeric">'.$title.'</td></tr>';
-
-				$html=$html."aaaaaaaaaaaaaa";
-				
+				$html=$html.'<tr><td class="mdl-data-table__cell--non-numeric"><img src="./images/tinysquare/'.$isbn.'.jpg" alt=""></td><td class="mdl-data-table__cell--non-numeric">'.$isbn.'</td><td class="mdl-data-table__cell--non-numeric"><a>'.$title.'</a></td></tr>';
 			}
+		}
+		if($html==''){
+			$html='NO ORDERS!';
+		}else{
+			$html=$html_table_th.$html.'</tobdy></table>';
 		}	
+	}else{
+		$html='';
 	}
-	// echo $html; 
-		return $html;
+	
+	return $html;
 }
+
 
 $dom_customer=createDom_customer($customerList);
 $dom_customerDetail=createDom_customerDetail($customerList);
-$dom_orderDetail=createDom_orderDetail($customerList);
+$dom_orderDetail=createDom_orderDetail($orderList);
 
 ?>

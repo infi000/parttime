@@ -67,24 +67,15 @@ include 'includes/book-crm-utilities.inc.php';
                         </tr>
                       </thead>
                       <tbody>
-                        
-                     <!--       Fill customers info here, HTML row structure for each customer info line, 
-                           make this a function that lives inside the book-crm-utilities.inc.php file
-                           <tr>
-                            <td class="mdl-data-table__cell--non-numeric">123</td>;
-                            <td class="mdl-data-table__cell--non-numeric">123</td>;
-                            <td class="mdl-data-table__cell--non-numeric">123</td>;   
-                            <td><span class="inlinesparkline">13</span></td>;
-                           </tr>
-                         -->
                       <?php   echo $dom_customer ?> 
                       </tbody>
                     </table>
                 </div>
               </div>  <!-- / mdl-cell + mdl-card -->
               
-              
-                <div class="mdl-grid mdl-cell--5-col">    
+              <?php  if (isset($_GET['customer'])){
+
+                    echo '     <div class="mdl-grid mdl-cell--5-col">    
                   <!-- mdl-cell + mdl-card -->
                   <div class="mdl-cell mdl-cell--12-col card-lesson mdl-card  mdl-shadow--2dp">
                     <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
@@ -92,7 +83,7 @@ include 'includes/book-crm-utilities.inc.php';
                     </div>
                     <div class="mdl-card__supporting-text">
                         <!-- Clicked Customer info is displayed here -->
-                      <?php   echo $dom_customerDetail ?> 
+                       '.$dom_customerDetail.'
                     </div>    
                   </div>  <!-- / mdl-cell + mdl-card -->   
 
@@ -103,28 +94,15 @@ include 'includes/book-crm-utilities.inc.php';
                         </div>
                         <div class="mdl-card__supporting-text">       
                             <!-- Display a message here, if a customer has no orders -->
-
-                            <table class="mdl-data-table  mdl-shadow--2dp">
-                              <thead>
-                                <tr>
-                                  <th class="mdl-data-table__cell--non-numeric">Cover</th>
-                                  <th class="mdl-data-table__cell--non-numeric">ISBN</th>
-                                  <th class="mdl-data-table__cell--non-numeric">Title</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                 <!-- Display customer's orders -->
-                                 <!-- <tr>
-                                  <td class="mdl-data-table__cell--non-numeric"><img src="./images/tinysquare/0132145375.jpg" alt=""></td>
-                                  <td class="mdl-data-table__cell--non-numeric">0321836960</td>
-                                  <td class="mdl-data-table__cell--non-numeric">Technical Communication</td>
-                                  </tr> -->
-                                   <?php   echo $createDom_orderDetail ?> 
-                              </tbody>
-                            </table>
+                            '.$dom_orderDetail.'
                         </div>    
                     </div>  <!-- / mdl-cell + mdl-card -->
-                </div>
+                </div>';
+
+                    }    
+              ?>
+              
+        
             </div>  <!-- / mdl-grid -->
         </section>
     </main>    
