@@ -9,214 +9,24 @@
         border: 1px solid #000;
     }
     </style>
+    <script src="./js/guagame/utils.js"></script>
+    <script src="./js/scenes/main/scenes.js"></script>
+    <script src="./js/scenes/end/scenesend.js"></script>
+    <script src="./js/guagame/gua_scene.js"></script>
+    <!-- <script src="./js/scenes/title/scenestitle.js"></script> -->
+    <script src="./js/level.js"></script>
+    <script src="./js/guagame/guagame.js"></script>
+    <script src="./js/scenes/main/block.js"></script>
+    <script src="./js/scenes/main/paddle.js"></script>
+    <script src="./js/scenes/main/ball.js"></script>
 </head>
 
 <body>
     <canvas id="id-canvas" width="400" height="300"></canvas>
-    <script>
-    var log = console.log.bind(console);
-    var imageFromPath = function(path) {
-        var img = new Image();
-        img.src = path;
-        return img;
-    };
-    var Collide = function(a, b) {
-        //a=ball,b=blank
-        if (a.y + a.image.height > b.y && a.y < b.y + b.image.height) {
-            if (a.x > b.x && a.x < b.x + b.image.width) {
-                return true;
-            }
-        }
-        return false;
-    };
-    var Paddle = function() {
-        var image = imageFromPath("./img/blank.png");
-        var o = {
-            image: image,
-            x: 100,
-            y: 250,
-            speed: 5,
-            move: function(x) {
-                //判断边界
-                if (x < 0) {
-                    x = 0;
-                }
-                if (x > 400 - this.image.width) {
-                    x = 400 - this.image.width;
-                }
-                this.x = x;
-            },
-            moveLeft: function() {
-                this.move(this.x - this.speed);
-            },
-            moveRight: function() {
-                this.move(this.x + this.speed);
-            },
-            collide: function(ball) {
-                if (ball.y + ball.image.height > this.y) {
-                    if (ball.x > this.x && ball.x < this.x + this.image.width) {
+    <hr>
+    <input type="range" id="id-input-range" title="fps" value="30">
 
-                        return true;
-                    }
-                }
-                return false;
-            },
-        };
-
-        return o;
-    };
-    var Ball = function() {
-        var image = imageFromPath("./img/ball.png");
-        var o = {
-            image: image,
-            x: 150,
-            y: 210,
-            speedX: 5,
-            speedY: 5,
-            fired: false,
-            fire: function() {
-                this.fired = true;
-            },
-            move: function() {
-                if (this.fired) {
-                    if (this.x < 0 || this.x > 400) {
-                        this.speedX = -this.speedX
-                    }
-                    if (this.y < 0 || this.y > 300) {
-                        this.speedY = -this.speedY
-                    }
-                    //move
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                }
-            },
-            bounce: function() {
-                this.speedY = -this.speedY;
-            }
-        };
-        return o;
-    };
-    var Block = function() {
-        var image = imageFromPath("./img/block.png");
-        var o = {
-            image: image,
-            x: 50,
-            y: 110,
-            alive: true,
-            kill: function() {
-                this.alive = false;
-            },
-            collide: function(ball) {
-                return this.alive && (Collide(ball, this) || Collide(this, ball));
-            },
-        };
-        return o;
-    };
-    var GuaGame = function() {
-        var canvas = document.getElementById("id-canvas");
-        var context = canvas.getContext("2d");
-        var g = {
-            canvas: canvas,
-            context: context,
-            actions: {},
-            keydowns: {},
-        };
-        //evnets
-        window.addEventListener("keydown", function(e) {
-            g.keydowns[e.key] = true;
-        });
-        window.addEventListener("keyup", function(e) {
-            g.keydowns[e.key] = false;
-        });
-        //register
-        g.registerAction = function(key, callback) {
-            g.actions[key] = callback;
-
-        };
-        //draw
-        g.drawImage = function(o) {
-            g.context.drawImage(o.image, o.x, o.y);
-        };
-        //timer
-        setInterval(function() {
-            //events
-            var actions = Object.keys(g.actions);
-            for (var i = 0; i < actions.length; i++) {
-                var key = actions[i];
-                if (g.keydowns[key]) {
-                    //如果按键按下，调用注册的action
-                    g.actions[key]();
-                }
-            }
-            //update
-            if (g.update) {
-                g.update();
-            }
-
-            //clear
-            context.clearRect(0, 0, canvas.width, canvas.height);
-            //draw
-            if (g.draw) {
-                g.draw();
-            }
-
-        }, 1000 / 80)
-
-        return g;
-    };
-    var __main = function() {
-        var game = GuaGame();
-        var paddle = Paddle();
-        var ball = Ball();
-        blocks = [];
-        for (var i = 0; i < 3; i++) {
-            var b = Block();
-            b.x = i * 150;
-            blocks.push(b);
-        }
-        game.registerAction("a", function() {
-            paddle.moveLeft();
-        });
-        game.registerAction("d", function() {
-            paddle.moveRight();
-        });
-        game.registerAction("f", function() {
-            ball.fire();
-        });
-        game.update = function() {
-
-            ball.move();
-            if (paddle.collide(ball)) {
-                ball.speedY = -ball.speedY;
-            }
-            //block碰撞,1.block消失,2.ball反弹
-
-            for (var i = 0; i < blocks.length; i++) {
-                var b = blocks[i];
-                if (b.collide(ball)) {
-                    b.kill();
-                    ball.bounce();
-                }
-            }
-
-        };
-        game.draw = function() {
-            //绘制paddle
-            game.drawImage(paddle);
-            //绘制iball
-            game.drawImage(ball);
-            //绘制block,存活时绘制
-            for (var i = 0; i < blocks.length; i++) {
-                var b = blocks[i];
-                if (b.alive) {
-                    game.drawImage(b);
-                }
-            }
-        };
-    };
-
-    __main();
-    </script>
+    <script src="./js/main.js"></script>
 </body>
 
 </html>
