@@ -1,3 +1,4 @@
+<?php include 'include/art-config.inc.php' ?>
 <!DOCTYPE html>
 <html lang=en>
 
@@ -21,24 +22,15 @@
                 <h4 class="ui dividing header">Filters</h4>
                 <div class="field">
                     <label>Artist</label>
-                    <select class="ui fluid dropdown">
-                        <option>Select Artist</option>
-                        <option>name</option>
-                    </select>
+                       <?php include 'include/artists.inc.php'  ?>
                 </div>
                 <div class="field">
                     <label>Museum</label>
-                    <select class="ui fluid dropdown">
-                        <option>Select Museum</option>
-                        <option>name</option>
-                    </select>
+                    <?php include 'include/museums.inc.php'  ?>
                 </div>
                 <div class="field">
                     <label>Shape</label>
-                    <select class="ui fluid dropdown">
-                        <option>Select Shape</option>
-                        <option>name</option>
-                    </select>
+                     <?php include 'include/shapes.inc.php'  ?>
                 </div>
                 <button class="small ui orange button" type="submit">
                     <i class="filter icon"></i> Filter
@@ -48,6 +40,7 @@
         <section class="eleven wide column">
             <h1 class="ui header">Paintings</h1>
             <ul class="ui divided items" id="paintingsList">
+               <?php include 'include/painttings.inc.php' ?>
                 <li class="item">
                     <a class="ui small image" href="detail.php?id=565"><img src="images/art/works/square-medium/131040.jpg"></a>
                     <div class="content">
@@ -86,6 +79,7 @@
         </section>
     </main>
    <?php include 'include/footer.inc.php' ?>
+
 </body>
 
 </html>
