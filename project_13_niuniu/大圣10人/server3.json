@@ -1,4 +1,0 @@
-{"act":"init","data":{"card_rule":"1","cur_match":"0","end_points":"1","hand_patterns":[""],"max_matches":"12","number":"835152","room_users":[{"user_id":"206116","nickname":"infi000","path":"http:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ajNVdqHZLLBpQWjaWCxJrLvBkUGbiaJM9RZyicNedqCOgOVxU5oCxkMQ8CYww3Lb5on3F1icv9gI9xFzH2WOamFMQ\/0","online":1,"is_join":0,"value":"0"}],"running":1,"zhuang_type":"1","zhuang_value":0}}
-{"act":"gameRunning","data":{"cur_match":"0","running":1,"users":[["206116","1","0"]]}}
-{"act":"playerjoin","data":{"position":1,"user_id":"206116","path":"http:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ajNVdqHZLLBpQWjaWCxJrLvBkUGbiaJM9RZyicNedqCOgOVxU5oCxkMQ8CYww3Lb5on3F1icv9gI9xFzH2WOamFMQ\/0","nickname":"infi000","sex":"1"}}
-{"act":"playerjoin","data":{"position":2,"user_id":"208808","path":"http:\/\/wx.qlogo.cn\/mmopen\/vi_32\/Q0j4TwGTfTIhLebTibr5EVOfV639XkiaOcZiagqAFzIHUbafoVDmD1kboGBMO40liclvT2FCv3UbDlRia48VA2E9yAg\/0","nickname":"😘tvmceshi🤑","sex":"1"}}
