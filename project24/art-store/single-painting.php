@@ -1,3 +1,5 @@
+<?php include 'include/art-config.inc.php' ?>
+<?php include 'include/single-painting/main.inc.php' ?>
 <!DOCTYPE html>
 <html lang=en>
 
@@ -6,46 +8,31 @@
     <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <script src="js/jquery.min.js"></script>
-    <script src="css/semantic.js"></script>
-    <script src="js/misc.js"></script>
+
     <link href="css/semantic.css" rel="stylesheet">
     <link href="css/icon.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <script>
+        var choosed_painting=<?php  echo json_encode($choosed_painting); ?>;
+        var frames=<?php echo json_encode($painting_frames); ?>;
+        var glass=<?php echo json_encode($painting_glass); ?>;
+        var matt=<?php echo json_encode($painting_matt); ?>;
+    </script>
 </head>
 
 <body>
    <?php include 'include/header.inc.php'  ?>
-    <main>
+    <main id="main_box">
         <!-- Main section about painting -->
         <section class="ui segment grey100">
-            <div class="ui doubling stackable grid container">
-                <div class="nine wide column">
-                    <img src="images/art/works/medium/105010.jpg" alt="..." class="ui big image" id="artwork">
-                    <div class="ui fullscreen modal">
-                        <div class="image content">
-                            <img src="images/art/works/large/105010.jpg" alt="..." class="image">
-                            <div class="description">
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
+            <div class="ui doubling stackable grid container" >
+                <div class="nine wide column" id="image_box">
                 </div>
                 <!-- END LEFT Picture Column -->
                 <div class="seven wide column">
                     <!-- Main Info -->
-                    <div class="item">
-                        <h2 class="header">The Anatomy Lesson of Dr. Nicolaes Tulp</h2>
-                        <h3>Rembrandt</h3>
-                        <div class="meta">
-                            <p>
-                                <i class="orange star icon"></i>
-                                <i class="orange star icon"></i>
-                                <i class="orange star icon"></i>
-                                <i class="orange star icon"></i>
-                                <i class="empty star icon"></i>
-                            </p>
-                            <p><em>The Anatomy Lesson of Dr. Nicolaes Tulp</em> is a 1632 oil painting by Rembrandt housed in the Mauritshuis museum in The Hague, the Netherlands. </p>
-                        </div>
+                    <div class="item" id="info_box">
+                    
                     </div>
                     <!-- Tabs For Details, Museum, Genre, Subjects -->
                     <div class="ui top attached tabular menu ">
@@ -54,129 +41,44 @@
                         <a class="item" data-tab="genres"><i class="theme icon"></i>Genres</a>
                         <a class="item" data-tab="subjects"><i class="cube icon"></i>Subjects</a>
                     </div>
-                    <div class="ui bottom attached active tab segment" data-tab="details">
-                        <table class="ui definition very basic collapsing celled table">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        Artist
-                                    </td>
-                                    <td>
-                                        <a href="#">Rembrandt</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Year
-                                    </td>
-                                    <td>
-                                        1632
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Medium
-                                    </td>
-                                    <td>
-                                        Oil on canvas
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Dimensions
-                                    </td>
-                                    <td>
-                                        216cm x 170cm
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="ui bottom attached active tab segment" data-tab="details" id="details_box">
+         
                     </div>
-                    <div class="ui bottom attached tab segment" data-tab="museum">
-                        <table class="ui definition very basic collapsing celled table">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        Museum
-                                    </td>
-                                    <td>
-                                        Royal Picture Gallery Mauritshuis
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Assession #
-                                    </td>
-                                    <td>
-                                        146
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Copyright
-                                    </td>
-                                    <td>
-                                        Private Use Only
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        URL
-                                    </td>
-                                    <td>
-                                        <a href="https://www.mauritshuis.nl/en/explore/the-collection/artworks/the-anatomy-lesson-of-dr-nicolaes-tulp-146/">View painting at museum site</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="ui bottom attached tab segment" data-tab="museum" id="museum_box">
+             
                     </div>
-                    <div class="ui bottom attached tab segment" data-tab="genres">
-                        <ul class="ui list">
-                            <li class="item"><a href="#">Baroque</a></li>
-                            <li class="item"><a href="#">Dutch Golden Age</a></li>
-                        </ul>
+                    <div class="ui bottom attached tab segment" data-tab="genres" id="genres_box">
+                 
                     </div>
-                    <div class="ui bottom attached tab segment" data-tab="subjects">
-                        <ul class="ui list">
-                            <li class="item"><a href="#">People</a></li>
-                            <li class="item"><a href="#">Science</a></li>
-                        </ul>
+                    <div class="ui bottom attached tab segment" data-tab="subjects" id="subjects_box">
+             
                     </div>
                     <!-- Cart and Price -->
                     <div class="ui segment">
                         <div class="ui form">
                             <div class="ui tiny statistic">
-                                <div class="value">
+                                <div class="value" id="price_box">
                                     $1,200
                                 </div>
                             </div>
                             <div class="four fields">
                                 <div class="three wide field">
                                     <label>Quantity</label>
-                                    <input type="number">
+                                    <input type="number"  class="math">
                                 </div>
                                 <div class="four wide field">
                                     <label>Frame</label>
-                                    <select id="frame" class="ui search dropdown">
-                                        <option>None</option>
-                                        <option>Ansley</option>
-                                        <option>Canyon</option>
+                                    <select id="frame" class="ui search dropdown"  class="math">
                                     </select>
                                 </div>
                                 <div class="four wide field">
                                     <label>Glass</label>
-                                    <select id="glass" class="ui search dropdown">
-                                        <option>None</option>
-                                        <option>Clear</option>
-                                        <option>Museum</option>
+                                    <select id="glass" class="ui search dropdown" class="math">
                                     </select>
                                 </div>
                                 <div class="four wide field">
                                     <label>Matt</label>
-                                    <select id="matt" class="ui search dropdown">
-                                        <option>None</option>
-                                        <option>Dawn Grey</option>
-                                        <option>Gold</option>
+                                    <select id="matt" class="ui search dropdown" class="math">
                                     </select>
                                 </div>
                             </div>
@@ -204,38 +106,12 @@
                     <a class="item" data-tab="second">On the Web</a>
                     <a class="item" data-tab="third">Reviews</a>
                 </div>
-                <div class="ui bottom attached active tab segment" data-tab="first">
-                    <em>The Anatomy Lesson of Dr. Nicolas Tulp</em> is a 1632 oil painting by Rembrandt housed in the Mauritshuis museum in The Hague, the Netherlands. Dr. Nicolaes Tulp is pictured explaining the musculature of the arm to medical professionals. Some of the spectators are various doctors who paid commissions to be included in the painting. The painting is signed in the top-left hand corner Rembrant. This may be the first instance of Rembrandt signing a painting with his forename (in its original form) as opposed to the monogramme RHL (Rembrant Harmenszoon of Leiden), and is thus a sign of his growing artistic confidence.
+                <div class="ui bottom attached active tab segment" data-tab="first" id="desc_box">
+  
                 </div>
                 <!-- END DescriptionTab -->
-                <div class="ui bottom attached tab segment" data-tab="second">
-                    <table class="ui definition very basic collapsing celled table">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    Wikipedia Link
-                                </td>
-                                <td>
-                                    <a href="#">View painting on Wikipedia</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Google Link
-                                </td>
-                                <td>
-                                    <a href="#">View painting on Google Art Project</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Google Text
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="ui bottom attached tab segment" data-tab="second" id="web_box">
+            
                 </div>
                 <!-- END On the Web Tab -->
                 <div class="ui bottom attached tab segment" data-tab="third">
@@ -278,7 +154,10 @@
             <h3 class="ui dividing header">Related Works</h3>
         </section>
     </main>
-   <?php include 'include/footer.inc.php' ?>
-</body>
 
+   <?php include 'include/footer.inc.php' ?>
+   <script src='js/single-painting.js'></script>
+</body>
+    <script src="css/semantic.js"></script>
+    <script src="js/misc.js"></script>
 </html>
