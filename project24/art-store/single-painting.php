@@ -64,21 +64,21 @@
                             <div class="four fields">
                                 <div class="three wide field">
                                     <label>Quantity</label>
-                                    <input type="number"  class="math">
+                                    <input type="number"  class="math" name="number">
                                 </div>
                                 <div class="four wide field">
                                     <label>Frame</label>
-                                    <select id="frame" class="ui search dropdown"  class="math">
+                                    <select id="frame" class="ui search dropdown math" name="frame" >
                                     </select>
                                 </div>
                                 <div class="four wide field">
                                     <label>Glass</label>
-                                    <select id="glass" class="ui search dropdown" class="math">
+                                    <select id="glass" class="ui search dropdown math" name="glass">
                                     </select>
                                 </div>
                                 <div class="four wide field">
                                     <label>Matt</label>
-                                    <select id="matt" class="ui search dropdown" class="math">
+                                    <select id="matt" class="ui search dropdown math" name="matt">
                                     </select>
                                 </div>
                             </div>

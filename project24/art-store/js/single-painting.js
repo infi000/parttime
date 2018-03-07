@@ -1,3 +1,5 @@
+var NUMBER_PRICE=0,FRAME_PRICE=0,GLASS_PRICE=0,PRICE=parseInt(choosed_painting.msrp);
+
 function createHTML_imageBox() {
     var imageid = choosed_painting.image||"";
     var desc = choosed_painting.desc||"";
@@ -122,6 +124,13 @@ function toThousands(num) {
     return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
 }
 
+
+function totle_price(){
+    var _num=NUMBER_PRICE?NUMBER_PRICE:1;
+    var totle=(PRICE+FRAME_PRICE+GLASS_PRICE)*_num;
+    return toThousands(totle);
+}
+
 $(document).ready(function() {
     if (choosed_painting) {
         $("#image_box").html(createHTML_imageBox());
@@ -135,9 +144,22 @@ $(document).ready(function() {
         $("#glass").html(createHTML_frameBox(glass));
         $("#matt").html(createHTML_frameBox(matt));
         $("#desc_box").html(choosed_painting.desc||"..");
-        $("#price_box").html("$"+toThousands(parseInt(choosed_painting.msrp)));
+        $("#price_box").html("$"+totle_price());
         $(".math").on("change",function(){
-            console.log($(this).val());
+            var type=$(this).attr('name');
+            var val=parseInt($(this).val());
+          switch(type){
+            case 'number':
+            NUMBER_PRICE=val;
+            break;
+             case 'frame':
+             FRAME_PRICE=val;
+            break;
+             case 'glass':
+             GLASS_PRICE=val;
+            break;
+          }
+          $("#price_box").html("$"+totle_price());
         })
     } else {
         var html='<section class="ui container"><h1 class="ui dividing header">SORRY! NO RESLUT!</h1></section>'
