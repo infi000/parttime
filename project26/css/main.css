@@ -16,10 +16,48 @@ body,html 	{
     width: 140px;
     height: 598px;
     position: relative;
-    margin: 0 auto;
+    margin: 0 auto 40px;
+    padding-top: 40px;
     border-radius: 40px;
     overflow: hidden;
     
+}
+.beer_floor{
+    position: absolute;
+    z-index: 1;
+}
+.floor1{
+    bottom: 0;
+    width: 100%;
+    background-color: green;
+    height: 100px;
+}
+.floor2{
+    bottom: 100px;
+    width: 100%;
+    background-color: blue;
+    height: 100px;
+}
+.floor3{
+    bottom:200px;
+    width: 100%;
+    background-color: red;
+    height: 100px;
+}
+.floor4_0{
+    bottom: 300px;
+    width: 100%;
+    background-color: #fff;
+    height: 70px;
+    border-radius: 60px 60px 0 0;
+}
+.floor5{
+bottom: 362px;
+    left: 29px;
+    width: 78px;
+    height: 217px;
+    background-color: gold;
+    border-radius: 11px 21px 0 0;
 }
 .beer_img{
 	width: 100%;
@@ -27,4 +65,16 @@ body,html 	{
 }
 .material_box{
 	background: red;
+    text-align: center;
+}
+.material_btn{
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: yellow;
+    margin: 0 10px;
+    color: #000;
 }
