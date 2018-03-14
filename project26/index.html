@@ -11,38 +11,78 @@
     <div class="wrap">
         <div class="beer_box">
             <img src="./img/beer.png" alt="" class="beer_img">
-            <div class="beer_floor floor1">catliao1</div>
+            <!--    <div class="beer_floor floor1">catliao1</div>
             <div class="beer_floor floor2">catliao2</div>
             <div class="beer_floor floor3">catliao3</div>
-            <div class="beer_floor floor4_0">catliao4</div>
-            <!-- <div class="beer_floor floor4_1">catliao4</div> -->
-            <div class="beer_floor floor5">catliao5</div>
+            <div class="beer_floor floor4">catliao4</div>
+            <div class="beer_floor floor5">catliao5</div> -->
         </div>
         <div class="material_box">
+        </div>
+        <div class="clean">
+            <a id="clean_btn">清空</a>
         </div>
     </div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script>
-
 var material = [
-    { name: '麦芽', color: '#CC9933' },
+    { name: '小麦芽', color: '#CC9933' },
+    { name: '大麦芽', color: '#8BC34A' },
     { name: '大米 ', color: '#EEEEEE' },
     { name: '啤酒花', color: '#669966' },
     { name: '酵母', color: '#FF9900' },
     { name: '水', color: '#3399CC' },
 ]
 
-function createMaterial(){
-    var html=""
-    for(var i=0;i<material.length;i++){
-        html+='<a class="material_btn" style="background-color: '+material[i].color+'">'+material[i].name+'</a>';
+var num = 0;
+
+function createMaterial() {
+    var html = ""
+    for (var i = 0; i < material.length; i++) {
+        html += '<a class="material_btn" style="background-color: ' + material[i].color + '" datatype="' + material[i].color + '">' + material[i].name + '</a>';
 
     };
     $('.material_box').html(html)
 }
 
-createMaterial();
+function createFloor(opt) {
+    var c = "floor" + num;
+    var ele = $('<div class="beer_floor ' + c + '" style="background-color:' + opt.color + '">' + opt.name + '</div>');
+    $(".beer_box").append(ele);
+}
+
+jQuery(document).ready(function($) {
+
+    createMaterial();
+
+    $(".material_box").on("click", "a", function(e) {
+        var c = $(this).attr('datatype'),
+            n = $(this).html(),
+            choose=$(this).attr('choosed');
+
+        if(choose){
+            alert("已经选择过了！");
+            return 
+        }
+
+        if (num >= 5) {
+            alert("已经满了！");
+            return
+        }
+
+        num++;
+        $(this).attr("choosed",true)
+        createFloor({ name: n, color: c });
+
+    });
+
+    $("#clean_btn").on("click",function(e){
+        $(".beer_floor").remove();
+          createMaterial();
+        num=0;
+    })
+});
 </script>
 
 </html>
